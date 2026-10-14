@@ -12,6 +12,9 @@ In: `data/stories.json`. Out: a PDF.
 ## Intent
 Clean layout, sections by category, readable typography, clickable source links, cover/title area with date.
 
+## Must handle
+A category with no stories (for example cat 8, Q12) is left out of the PDF, not shown empty.
+
 ## Success check
 A PDF I would be happy to read.
 

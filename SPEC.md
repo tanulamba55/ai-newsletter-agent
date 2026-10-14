@@ -15,7 +15,7 @@ and a link to the original source.
 |---|---|---|---|
 | 1 | Collect RSS items | [specs/stage1-collect.md](specs/stage1-collect.md) | items.json |
 | 2 | Search lanes to fill gaps | [specs/stage2-search.md](specs/stage2-search.md) | items_extra.json |
-| 3 | Dedupe, categorize, find original source, summarize | [specs/stage3-process.md](specs/stage3-process.md) | stories.json |
+| 3 | Health check, dedupe, tag YC companies, categorize, find original source, summarize | [specs/stage3-process.md](specs/stage3-process.md) | stories.json |
 | 4 | UI skill: stories.json to PDF | [specs/stage4-pdf.md](specs/stage4-pdf.md) | PDF |
 | 5 | Publish + schedule weekly | [specs/stage5-publish.md](specs/stage5-publish.md) | published PDF |
 
@@ -27,6 +27,8 @@ JSON files are the contract between stages. Code shapes live in
 ## Categories (8)
 Each story gets exactly ONE category. Precedence (first match wins):
 1. YC-backed company: product launch -> cat 4, anything else -> cat 8
+   ("YC-backed" = batches from roughly the last 3 years; cutoff lives in config.
+   Applies only if the company name appears in the item's title or snippet)
 2. Chinese company or model -> cat 7 (even if open-source or funding)
 3. Regulation or policy -> cat 3
 4. Open-weights model release -> cat 6
@@ -77,7 +79,15 @@ Claude API, used only through one file (`src/lib/llm.ts`). Smaller model
 for triage, larger for summaries. Paid per use; needs an API key in .env
 and a spend cap.
 
-## JSON contracts
+## Resources and approvals
+What is free is not enough on its own. These need a decision or a purchase.
+
+| Item | Status | Why | Details |
+|---|---|---|---|
+| Claude API key and spend cap | Required | Stage 3 triage and summaries | AI engine, above |
+| Claude web search (paid) | Conditional | Recall benchmark in the test week; backup search if the Q11 or Q20 triggers fire | Whole pipeline (benchmark), Q11, Q20. Price checked at build time |
+| Terms-of-use decision | Required before Stage 5 | Bing and Google News RSS feed a publicly published product. Your senior decides | Stage 2 Risk 6 |
+| Real-browser fetch tool (for example Firecrawl) | Optional, test first | Helps blocked or paywalled pages (KnowTechie, some articles). Renders a page like a real browser | Q7 (free tiers and test plan) |
 
 ### Item (items.json, items_extra.json)
 - id, title, url, outlet
@@ -85,6 +95,7 @@ and a spend cap.
 - published_at (UTC)
 - snippet (may be empty)
 - optional: region ("china"), lane, category_hint, yc_match {company, batch}
+  (yc_match: set by Stage 2 for YC launches, by the Stage 3 tagger for everything else)
 
 ### Story (stories.json)
 - title
@@ -92,19 +103,24 @@ and a spend cap.
 - summary (2-3 sentences)
 - why_it_matters (1-2 sentences)
 - source_url (original source)
-- source_is_original (true/false)
 - other_links (optional, e.g. coverage by outlets)
 - date
 
 ### Skipped (skipped.json)
 Dropped items with a reason: too_old, duplicate, minor,
-over_category_cap, no_original_source, fetch_failed, quote_not_found.
+over_category_cap, no_original_source, fetch_failed, quote_not_found,
+not_ai, undated, undecodable_link, over_item_cap, number_not_found.
+File layout: one file per stage. Stage 1 writes `data/skipped_stage1.json`,
+Stage 2 writes `data/skipped_stage2.json`, Stage 3 writes `data/skipped.json`
+(its own drops merged with the two stage files, for your audit).
 
 ## Whole pipeline
 - Raw downloads are saved to `data/cache/<date>/` so any run can be replayed offline.
 - Each stage writes a temp file, then renames it, so a crash never leaves half a file.
 - After Stages 1-3 are built: one end-to-end run on a real week; read stories.json top to bottom and ask "would I send this?".
+- Benchmark week (re-verifies the free resources): with paid Claude web search, build an independent list of that week's big AI stories and compare it with what the free pipeline found. Report recall per category and the reason for each miss (provider blocked, decoder failed, dropped by triage, wrong category, no original source). Run it in the first real test week, again whenever a trigger fires (recall under 70%, a provider errors in 2 runs in a row, a format change), and as an occasional spot check (suggested monthly). Small cost, only on those weeks.
 - Secrets (API key) live in `.env`, which is in `.gitignore`.
+- Health guard: Stages 1 and 2 each print a health summary and write `data/health_stageN.json` (feeds or providers that failed, fallbacks that fired, item count). Stage 3 reads both and stops BEFORE any AI call if: more than 3 feeds ERROR, or both Bing and Google News failed in Stage 2, or total items are below a minimum (set after the first real run, lives in config). `--force` overrides the stop. A scheduled run (Stage 5) never uses `--force`.
 
 ## PDF (UI skill, built later)
 Clean layout, sections by category, readable typography, clickable

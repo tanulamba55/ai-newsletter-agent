@@ -11,6 +11,7 @@ Weekly AI newsletter: collect news, summarize with sources, produce a designed P
 - If a shared fact changes: edit SPEC.md only, then search specs/ for mentions
 - Before building a stage, audit SPEC.md, CLAUDE.md and that stage file for contradictions
 - Each stage file has a Status line (planned / approved / built / tested); keep it current
+- Each stage file lists its Known gaps (Q numbers in open-questions.md). Before building, read those entries (OPEN, WATCH, TEMPORARY, DEFERRED) and build around them; a stage is not "built" until each is fixed, verified, or accepted by the user
 
 ## Architecture (keep these separate)
 
