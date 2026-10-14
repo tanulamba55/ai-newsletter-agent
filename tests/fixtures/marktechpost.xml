@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	 xmlns:media="http://search.yahoo.com/mrss/" >
+
+<channel>
+	<title>MarkTechPost</title>
+	<atom:link href="https://www.marktechpost.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.marktechpost.com/</link>
+	<description>An Artificial Intelligence News Platform</description>
+	<lastBuildDate>Wed, 14 Oct 2026 05:03:36 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.3</generator>
+
+<image>
+	<url>https://www.marktechpost.com/wp-content/uploads/2022/04/cropped-Favicon-512-x-512-1-1-32x32.png</url>
+	<title>MarkTechPost</title>
+	<link>https://www.marktechpost.com/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">127842392</site>	<item>
+		<title>Google Releases Gemini 4 Argon API With 1M Token Output Limit</title>
+		<link>https://www.marktechpost.com/2026/10/13/google-gemini-4-argon-api-release/</link>
+		
+		<dc:creator><![CDATA[Asif Razzaq]]></dc:creator>
+		<pubDate>Wed, 14 Oct 2026 05:03:34 +0000</pubDate>
+				<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[Editors Pick]]></category>
+		<category><![CDATA[Enterprise AI]]></category>
+		<category><![CDATA[For Devs]]></category>
+		<category><![CDATA[New Releases]]></category>
+		<category><![CDATA[Software Engineering]]></category>
+		<category><![CDATA[Staff]]></category>
+		<category><![CDATA[Tech News]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://www.marktechpost.com/?p=82905</guid>
+
+					<description><![CDATA[<p>Google has made Gemini 4 Argon generally available on the Gemini API, AI Studio and the Gemini app. The sparse MoE model writes up to 1M output tokens and leads the Vals Index at 68.90%.</p>
+<p>The post <a href="https://www.marktechpost.com/2026/10/13/google-gemini-4-argon-api-release/">Google Releases Gemini 4 Argon API With 1M Token Output Limit</a> appeared first on <a href="https://www.marktechpost.com">MarkTechPost</a>.</p>
+]]></description>
+										
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">82905</post-id>
+	</item><item>
+		<title>Meta Launches Muse Wonder and Muse Wonder Full: Benchmarks, Pricing and How to Use It</title>
+		<link>https://www.marktechpost.com/2026/10/13/meta-muse-wonder-muse-wonder-full-release/</link>
+		
+		<dc:creator><![CDATA[Michal Sutter]]></dc:creator>
+		<pubDate>Tue, 13 Oct 2026 22:53:44 +0000</pubDate>
+				<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[AI Agents]]></category>
+		<category><![CDATA[AI Shorts]]></category>
+		<category><![CDATA[Applications]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Editors Pick]]></category>
+		<category><![CDATA[For Devs]]></category>
+		<category><![CDATA[New Releases]]></category>
+		<category><![CDATA[Software Engineering]]></category>
+		<category><![CDATA[Staff]]></category>
+		<category><![CDATA[Tech News]]></category>
+		<category><![CDATA[Technology]]></category>
+		<guid isPermaLink="false">https://www.marktechpost.com/?p=82893</guid>
+
+					<description><![CDATA[<p>Meta released Muse Wonder and Muse Wonder Full, 1M-context agent models. Muse Wonder costs $4/$20 per million tokens on Meta Model API. Wonder Full, on Muse Code plans, leads DeepSWE and SWE-Marathon.</p>
+<p>The post <a href="https://www.marktechpost.com/2026/10/13/meta-muse-wonder-muse-wonder-full-release/">Meta Launches Muse Wonder and Muse Wonder Full: Benchmarks, Pricing and How to Use It</a> appeared first on <a href="https://www.marktechpost.com">MarkTechPost</a>.</p>
+]]></description>
+										
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">82893</post-id>
+		<media:thumbnail url="https://www.marktechpost.com/wp-content/uploads/2026/10/step1-dev-meta-ai-150x150.jpg" />
+		<media:content url="https://www.marktechpost.com/wp-content/uploads/2026/10/step1-dev-meta-ai.jpg" medium="image">
+			<media:title type="html">step1-dev-meta-ai</media:title>
+			<media:thumbnail url="https://www.marktechpost.com/wp-content/uploads/2026/10/step1-dev-meta-ai-150x150.jpg" />
+		</media:content>
+		<media:content url="https://www.marktechpost.com/wp-content/uploads/2026/10/step2-pick-model-1.jpg" medium="image">
+			<media:title type="html">step2-pick-model</media:title>
+			<media:thumbnail url="https://www.marktechpost.com/wp-content/uploads/2026/10/step2-pick-model-1-150x150.jpg" />
+		</media:content>
+		<media:content url="https://www.marktechpost.com/wp-content/uploads/2026/10/step3-sign-in-1.jpg" medium="image">
+			<media:title type="html">step3-sign-in</media:title>
+			<media:thumbnail url="https://www.marktechpost.com/wp-content/uploads/2026/10/step3-sign-in-1-150x150.jpg" />
+		</media:content>
+		<media:content url="https://www.marktechpost.com/wp-content/uploads/2026/10/step4-billing-api-key.jpg" medium="image">
+			<media:title type="html">step4-billing-api-key</media:title>
+			<media:thumbnail url="https://www.marktechpost.com/wp-content/uploads/2026/10/step4-billing-api-key-150x150.jpg" />
+		</media:content>
+		<media:content url="https://www.marktechpost.com/wp-content/uploads/2026/10/step5-playground.jpg" medium="image">
+			<media:title type="html">step5-playground</media:title>
+			<media:thumbnail url="https://www.marktechpost.com/wp-content/uploads/2026/10/step5-playground-150x150.jpg" />
+		</media:content>
+		<media:content url="https://www.marktechpost.com/wp-content/uploads/2026/10/step6-get-code.jpg" medium="image">
+			<media:title type="html">step6-get-code</media:title>
+			<media:thumbnail url="https://www.marktechpost.com/wp-content/uploads/2026/10/step6-get-code-150x150.jpg" />
+		</media:content>
+	</item><item>
+		<title>How to Use Meta&#8217;s Rebalancer for Task Placement &#038; Optimization</title>
+		<link>https://www.marktechpost.com/2026/10/13/how-to-use-metas-rebalancer-for-task-placement-optimization/</link>
+		
+		<dc:creator><![CDATA[Sana Hassan]]></dc:creator>
+		<pubDate>Tue, 13 Oct 2026 22:14:20 +0000</pubDate>
+				<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[AI Infrastructure]]></category>
+		<category><![CDATA[Applications]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Editors Pick]]></category>
+		<category><![CDATA[For Devs]]></category>
+		<category><![CDATA[Language Model]]></category>
+		<category><![CDATA[Large Language Model]]></category>
+		<category><![CDATA[Machine Learning]]></category>
+		<category><![CDATA[Software Engineering]]></category>
+		<category><![CDATA[Staff]]></category>
+		<category><![CDATA[Tech News]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Tutorials]]></category>
+		<guid isPermaLink="false">https://www.marktechpost.com/?p=82890</guid>
+
+					<description><![CDATA[<p>In this comprehensive coding tutorial, we explore Meta's Rebalancer assignment solver using its C++ core and Python bindings. Learn how to build datacenters, manage task placements across racks, handle constraints and goal priorities, and compare local search against the exact HiGHS solver using published benchmarks.</p>
+<p>The post <a href="https://www.marktechpost.com/2026/10/13/how-to-use-metas-rebalancer-for-task-placement-optimization/">How to Use Meta&#8217;s Rebalancer for Task Placement &amp; Optimization</a> appeared first on <a href="https://www.marktechpost.com">MarkTechPost</a>.</p>
+]]></description>
+										
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">82890</post-id>
+	</item><item>
+		<title>Z.ai GLM-Legal Beats Claude Fable 5 and Kimi K3 on Harvey LAB</title>
+		<link>https://www.marktechpost.com/2026/10/13/zai-glm-legal-harvey-lab-legal-ai-model/</link>
+		
+		<dc:creator><![CDATA[Michal Sutter]]></dc:creator>
+		<pubDate>Tue, 13 Oct 2026 08:19:54 +0000</pubDate>
+				<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[AI Infrastructure]]></category>
+		<category><![CDATA[AI Shorts]]></category>
+		<category><![CDATA[Applications]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Editors Pick]]></category>
+		<category><![CDATA[For Devs]]></category>
+		<category><![CDATA[Language Model]]></category>
+		<category><![CDATA[Large Language Model]]></category>
+		<category><![CDATA[Machine Learning]]></category>
+		<category><![CDATA[New Releases]]></category>
+		<category><![CDATA[Software Engineering]]></category>
+		<category><![CDATA[Staff]]></category>
+		<category><![CDATA[Tech News]]></category>
+		<category><![CDATA[Technology]]></category>
+		<guid isPermaLink="false">https://www.marktechpost.com/?p=82887</guid>
+
+					<description><![CDATA[<p>Z.ai’s GLM-Legal is a legal AI model built on GLM-5.3-Flash. It scores 19.2% all-pass on Harvey’s Legal Agent Benchmark, nearly 3x its base, at $0.15 per test. Access is by application.</p>
+<p>The post <a href="https://www.marktechpost.com/2026/10/13/zai-glm-legal-harvey-lab-legal-ai-model/">Z.ai GLM-Legal Beats Claude Fable 5 and Kimi K3 on Harvey LAB</a> appeared first on <a href="https://www.marktechpost.com">MarkTechPost</a>.</p>
+]]></description>
+										
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">82887</post-id>
+	</item><item>
+		<title>Alibaba Qwen Introduces QwenGyre: Elastic Reinforcement Learning RL for XLong-Horizon Agents</title>
+		<link>https://www.marktechpost.com/2026/10/12/alibaba-qwen-introduces-qwengyre-elastic-reinforcement-learning-rl-for-xlong-horizon-agents/</link>
+		
+		<dc:creator><![CDATA[Asif Razzaq]]></dc:creator>
+		<pubDate>Mon, 12 Oct 2026 21:41:50 +0000</pubDate>
+				<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[AI Infrastructure]]></category>
+		<category><![CDATA[AI Paper Summary]]></category>
+		<category><![CDATA[AI Shorts]]></category>
+		<category><![CDATA[Applications]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Editors Pick]]></category>
+		<category><![CDATA[Staff]]></category>
+		<category><![CDATA[Tech News]]></category>
+		<category><![CDATA[Technology]]></category>
+		<guid isPermaLink="false">https://www.marktechpost.com/?p=82873</guid>
+
+					<description><![CDATA[<p>Alibaba&#8217;s Qwen team has introduced QwenGyre, an elastic reinforcement learning RL framework for extreme-long-horizon agent training. QwenGyre is an online reinforcement learning system from Alibaba that trains coding agents through unmodified, black-box harnesses. It targets rollouts that run for hours and process close to 1M tokens. The QwenGyre elastic RL framework was used on Qwen&#8217;s [&#8230;]</p>
+<p>The post <a href="https://www.marktechpost.com/2026/10/12/alibaba-qwen-introduces-qwengyre-elastic-reinforcement-learning-rl-for-xlong-horizon-agents/">Alibaba Qwen Introduces QwenGyre: Elastic Reinforcement Learning RL for XLong-Horizon Agents</a> appeared first on <a href="https://www.marktechpost.com">MarkTechPost</a>.</p>
+]]></description>
+										
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">82873</post-id>
+	</item>
+	</channel>
+</rss>

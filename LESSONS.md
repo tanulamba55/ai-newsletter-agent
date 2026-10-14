@@ -42,3 +42,37 @@ Short facts learned while working on this project. Read at the start of every se
 ## Process lessons
 - A decision recorded in a handoff note is not proof an outside service still behaves that way. Re-check the cheap ones (HTTP status, newest date) at the start of a build session.
 - Stage notes go in `docs/sessions/` (one dated file per session). Keep the repo root to CLAUDE.md, README.md, LESSONS.md and package files.
+
+## Stage 1 build (14 Oct 2026)
+| Lesson | Source | Status |
+|---|---|---|
+| The Google News query `site:venturebeat.com` is padded: 69 of its 100 entries have an empty title (" - VentureBeat") and decode to site files (`/_next/static/chunks/*.js`), not articles. Real articles: about 31. The "100 VentureBeat items" in Q8/Q15 counts these | live run 14 Oct (`data/health_stage1.json`, report note); decoder reply read by hand | verified 2026-10-14. Changed from Q8/Q15 ("100") |
+| The spike's success test (URL is not `news.google.com`) passed those site files, so "95 of 95 decoded" overstated; the decoder itself works on real articles (VentureBeat 31/31, SCMP 100/100, Pandaily 48/48 decoded, 0 undecodable) | `scripts/spikes/decode-spike.mjs`, live run | verified 2026-10-14 (count of real articles); the 13 Oct figure is `from notes` |
+| Google's decoder reply double-escapes `=` and `&` in the URL (`\\u003d`). The spike's text match cut such URLs at the first backslash. `resolveUrl.ts` parses the JSON instead | raw reply inspected; test in `tests/stage1.test.ts` | verified 2026-10-14 |
+| Hugging Face API returned 500/504 for every org (even `limit=5`) at about 07:30 UTC, an hour after the health check passed. It is intermittent. Live mapping only tested on a saved Qwen response | curl and two full runs 14 Oct | verified 2026-10-14. Back later the same day: live run gave 4 model items (Qwen/tencent 2, open-weights labs 2), 0 feeds in ERROR |
+| SCMP `/rss/5/feed/` is titled "World - South China Morning Post". With the Google News copy, SCMP is 140 of 386 items, almost all non-AI | feed header; items.json | verified 2026-10-14 |
+| Prefilter dropped "Introducing Microsoft's latest custom chip: Maia 300" as `not_ai` (a real AI story). Also dropped: Google "Playground" games, 4 Meta policy posts, 1 Nvidia GeForce post | `data/skipped_stage1.json` | verified 2026-10-14. Q17 trigger fired, decision pending |
+| Google's `<source>` name differs from our feed name ("South China Morning Post" vs "SCMP"). Using it split one outlet into two. Outlet now always = feed name | first live output | verified 2026-10-14 |
+| First live run took over 10 min (about 180 decodes at 1.5 s plus paging); a rerun takes seconds except for slow or failing feeds | two live runs | verified 2026-10-14 |
+| Node 23.6 `node --test tests/` fails (treats it as a file); use a glob, `"tests/*.test.ts"` | `npm test` | verified 2026-10-14 |
+
+## Firecrawl test (Q7, Q8), 14 Oct 2026
+| Lesson | Source | Status |
+|---|---|---|
+| Firecrawl cannot fetch KnowTechie either (feed or homepage): HTTP 500, "SSL/TLS certificate error", even with its own TLS-skip on. Our own `curl -k` also fails at the TLS handshake, while plain `http://` answers 409. The site sits behind Cloudflare. Firecrawl does not unblock it | `scripts/spikes/firecrawl-spike.ts`, curl | verified 2026-10-14 (one try each, one machine) |
+| Firecrawl fetches VentureBeat's own feed (our direct call gets 429): 1 credit, 0.4 s, 7 items from 10 to 13 Oct with description text. Paging does not work (`?paged=2,3,5` all return the same 7 items). So it covers about 3.5 days, not 7, and cannot replace the Google News route (about 31 articles in 7 days) | same spike | verified 2026-10-14 |
+| The 7 VentureBeat items from Firecrawl carry snippets, which Google News items lack (Q18). Possible use: add snippets for the newest days. Not built | same spike | verified 2026-10-14; idea only |
+| Firecrawl SCMP article test was inconclusive: the chosen page is a short intro (271 words, mostly navigation) with the report body elsewhere, so it says nothing about paywalls | same spike | verified 2026-10-14; needs a better test page |
+| Cost of the whole test: about 7 credits of the 1,000 a month free plan | Firecrawl responses (`creditsUsed`) | verified 2026-10-14 |
+
+## Jina Reader vs Firecrawl (14 Oct 2026)
+| Lesson | Source | Status |
+|---|---|---|
+| Same four pages through both tools: KnowTechie fails in both (Jina HTTP 422, Firecrawl TLS error). VentureBeat feed: Jina gets the Vercel block page (429 inside), Firecrawl returns the feed (7 items, 1 credit). SCMP article: both work. Firecrawl is stronger and faster (0.4 s vs 16 s on the VentureBeat feed) but costs credits; Jina is free but hosted (about 20 requests a minute without a key) | curl to `r.jina.ai` and `scripts/spikes/firecrawl-spike.ts`, 14 Oct | verified 2026-10-14 (one try each, one machine) |
+| Idea for Stage 3 article fetch, not built or decided: try our own fetch first, then Jina (free), then Firecrawl (credits). Test both on real failing pages then. Stage 1 needs neither | this discussion | idea, from notes |
+
+## User manual check (14 Oct 2026, 10:54 UTC)
+| Lesson | Source | Status |
+|---|---|---|
+| Raw GitHub was refused again for the Anthropic community feed and the jsDelivr `fallback_url` took over (report showed Fallback YES, 3 items). So raw GitHub is intermittent from the dev machine (OK at about 06:30 and 07:30 UTC, refused at 10:54). The fallback works as designed | user's `npm run collect` output | verified 2026-10-14 |
+| User's manual run: 269 items, 0 feeds in ERROR, 0 undecodable, all 29 tests pass; manual checks passed | user's pasted output | verified 2026-10-14 |

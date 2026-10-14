@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+  <id>tag:github.com,2008:/Olshansk/rss-feeds/commits/main</id>
+  <link type="text/html" rel="alternate" href="https://github.com/Olshansk/rss-feeds/commits/main"/>
+  <link type="application/atom+xml" rel="self" href="https://github.com/Olshansk/rss-feeds/commits/main.atom"/>
+  <title>Recent Commits to rss-feeds:main</title>
+  <updated>2026-10-13T22:06:26Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Grit::Commit/9a1df9fa6ced2c17b7f432cfe28433852b33092e</id>
+    <link type="text/html" rel="alternate" href="https://github.com/Olshansk/rss-feeds/commit/9a1df9fa6ced2c17b7f432cfe28433852b33092e"/>
+    <title>
+        🐛 fix(scheduled): collect full attempt log archives
+    </title>
+    <updated>2026-10-13T22:06:26Z</updated>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/1892194?s=30&amp;v=4"/>
+    <author>
+      <name>Olshansk</name>
+      <uri>https://github.com/Olshansk</uri>
+    </author>
+    <content type="html">
+      &lt;pre style=&#39;white-space:pre-wrap;width:81ex&#39;&gt;🐛 fix(scheduled): collect full attempt log archives&lt;/pre&gt;
+    </content>
+  </entry><entry>
+    <id>tag:github.com,2008:Grit::Commit/994208ddceff8c3ae04713d1b369d2712ccffccb</id>
+    <link type="text/html" rel="alternate" href="https://github.com/Olshansk/rss-feeds/commit/994208ddceff8c3ae04713d1b369d2712ccffccb"/>
+    <title>
+        Update RSS feeds
+    </title>
+    <updated>2026-10-13T21:06:21Z</updated>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/in/15368?s=30&amp;v=4"/>
+    <author>
+      <name>github-actions</name>
+      <uri>https://github.com/github-actions</uri>
+    </author>
+    <content type="html">
+      &lt;pre style=&#39;white-space:pre-wrap;width:81ex&#39;&gt;Update RSS feeds&lt;/pre&gt;
+    </content>
+  </entry><entry>
+    <id>tag:github.com,2008:Grit::Commit/c836088ce37c33c33702384bf61c208b55032557</id>
+    <link type="text/html" rel="alternate" href="https://github.com/Olshansk/rss-feeds/commit/c836088ce37c33c33702384bf61c208b55032557"/>
+    <title>
+        Update RSS feeds
+    </title>
+    <updated>2026-10-13T20:07:30Z</updated>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/in/15368?s=30&amp;v=4"/>
+    <author>
+      <name>github-actions</name>
+      <uri>https://github.com/github-actions</uri>
+    </author>
+    <content type="html">
+      &lt;pre style=&#39;white-space:pre-wrap;width:81ex&#39;&gt;Update RSS feeds&lt;/pre&gt;
+    </content>
+  </entry>
+</feed>

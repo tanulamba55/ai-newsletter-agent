@@ -1,0 +1,8 @@
+{
+  "case_sensitive": ["AI"],
+  "case_insensitive": [
+    "artificial intelligence", "machine learning", "deep learning", "LLM", "LLMs", "GPT", "Gemini", "Gemma",
+    "Claude", "Llama", "Copilot", "chatbot", "chatbots", "generative", "neural", "foundation model",
+    "foundation models", "agent", "agents", "agentic", "inference", "GPU", "GPUs"
+  ]
+}

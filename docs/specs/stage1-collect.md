@@ -1,8 +1,8 @@
 # Stage 1: Collect RSS items
 
-Status: approved (plan) - not built
+Status: built (14 Oct 2026; 29 automated tests pass, user manual checks passed; not yet run in an end-to-end week)
 Depends on (SPEC.md): Selection rules (7-day window), Item contract
-Known gaps (open-questions.md): Q7, Q8, Q9, Q13, Q14, Q15, Q16, Q17, Q18, Q19 (plus Q12 for thin YC sources)
+Known gaps (open-questions.md): Q7, Q8, Q9, Q12 (thin YC sources), Q13, Q15 (decoder gate), Q16, Q17. Q18 and Q19 are Stage 3 gaps
 
 ## Purpose
 Pull the last 7 days of headlines from media and official RSS feeds into one file.
@@ -25,9 +25,9 @@ Media (type "media"):
 - VentureBeat: Google News RSS fallback `news.google.com/rss/search?q=site:venturebeat.com+when:7d` (own feed returns HTTP 429; temporary, Q8)
 - KnowTechie: skipped (blocked by Cloudflare, Q7)
 
-China media (type "media", region "china"): SCMP tech `scmp.com/rss/5/feed`, TechNode `technode.com/feed/`, Pandaily `pandaily.com/feed/`, ChinaTalk `chinatalk.media/feed`.
+China media (type "media", region "china"): SCMP `https://www.scmp.com/rss/5/feed/` (the address without the slash redirects; general news, not only AI: keyword prefilter on, decided 14 Oct 2026, because it was 140 of 386 items and Stage 3 has an item cap), TechNode `technode.com/feed/`, Pandaily `pandaily.com/feed/`, ChinaTalk `chinatalk.media/feed`.
 
-Official (type "official"): OpenAI `openai.com/news/rss.xml`, Google `blog.google/technology/ai/rss/`, Nvidia `blogs.nvidia.com/feed/`, Hugging Face `huggingface.co/blog/feed.xml`, Mistral `mistral.ai/rss.xml`, Apple ML `machinelearning.apple.com/rss.xml`, Meta `about.fb.com/news/feed/`, Microsoft `news.microsoft.com/source/topics/ai/feed/`, Anthropic via community feed `Olshansk/rss-feeds` (`raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml` first; jsDelivr mirror `cdn.jsdelivr.net/gh/Olshansk/rss-feeds@main/feeds/feed_anthropic_news.xml` as `fallback_url`; temporary, Q9).
+Official (type "official"): OpenAI `openai.com/news/rss.xml`, Google AI `blog.google/innovation-and-ai/technology/ai/rss/` (old address redirects here), Nvidia `blogs.nvidia.com/feed/`, Hugging Face `huggingface.co/blog/feed.xml`, Mistral `mistral.ai/news/rss` (old address redirects here), Apple ML `machinelearning.apple.com/rss.xml`, Meta `about.fb.com/news/feed/`, Microsoft `news.microsoft.com/source/topics/ai/feed/`, Anthropic via community feed `Olshansk/rss-feeds` (`raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml` first; jsDelivr mirror `cdn.jsdelivr.net/gh/Olshansk/rss-feeds@main/feeds/feed_anthropic_news.xml` as `fallback_url`; temporary, Q9).
 
 YC (type "media", lane "yc"): TechCrunch Y Combinator tag `techcrunch.com/tag/y-combinator/feed/` (sparse), YC blog `ycombinator.com/blog/rss` (mostly YC corporate news). See Stage 2 for the missing-main-source flag.
 
@@ -45,7 +45,7 @@ No feed (covered by Stage 2 search): AMD, Databricks, Meta AI blog, Chinese AI l
 2b. If the main address fails (connection error or HTTP error) and the feed has a `fallback_url`, try it once before marking the feed ERROR; the health file records that the fallback fired. `hf-models` feeds call the Hugging Face API instead of reading RSS.
 3. Paging: each feed has a `paging` setting in feeds.json: `paged` (fetch `?paged=N` until items are older than 7 days, max about 15 pages), `none-needed` (feed already reaches 7+ days) or `google-news` (feed cannot page; use Google News `site:<domain>+when:7d` instead).
 4. Keep items from the last 7 days; normalize dates to UTC; drop items with no date (log `undated`, count in the report).
-4b. Keyword prefilter, only for official feeds that are not AI-only (Google, Nvidia, Microsoft, Meta): keep items matching AI keywords; log the rest as `not_ai` in `data/skipped_stage1.json` (print the count in the report, Q17).
+4b. Keyword prefilter, only for general (not AI-only) feeds flagged `prefilter` in feeds.json: Nvidia, Meta and SCMP. Google AI and Microsoft are AI-topic feeds and are not filtered (the filter wrongly dropped the Microsoft Maia 300 chip story, 14 Oct 2026): keep items matching AI keywords; log the rest as `not_ai` in `data/skipped_stage1.json` (print the count in the report, Q17).
 5. Decode Google News redirect links to real article URLs (shared helper `lib/resolveUrl.ts`). A link that cannot be decoded is logged `undecodable_link`. Build and test this first as a go/no-go spike (Q15).
 6. Clean URLs, remove exact duplicates, write items.json, `skipped_stage1.json` and `health_stage1.json`, print the report (feeds in ERROR and fallbacks that fired are listed).
 
@@ -64,7 +64,7 @@ A file with a week of headlines from every working feed; report shows each feed'
 - AI Business holds 50 items (about a month).
 - AI Models Substack: 20 items back to Apr 2026, full text included.
 - All 18 listed feeds responded on 14 Oct 2026. AI Models Substack and Mistral had nothing newer than 6 Oct (quiet, not broken). TechCrunch AI, TechCrunch Startups and Crunchbase News also work.
-- Anthropic community feed: `raw.githubusercontent.com` was refused from the dev machine (connection reset); the jsDelivr mirror worked (newest item 8 Oct).
+- Anthropic community feed: `raw.githubusercontent.com` was refused once from the dev machine (connection reset) but returned 200 on 14 Oct; may be intermittent. The jsDelivr mirror stays as `fallback_url` (newest item 8 Oct).
 - Hugging Face API, last 7 days: Qwen 1, tencent 1, mistralai 2, nvidia 9, most other labs 0 (sparse, low noise).
 - Google News links need decoding. Spike (13 Oct 2026): 95 of 95 decoded; Google News gave VentureBeat 100, SCMP 100, Pandaily 48 items in 7 days (Q15).
 
@@ -76,7 +76,7 @@ All free. Node 23.6 built-in `fetch` and `node:test`; `rss-parser` (read RSS and
 2. **Google News links will not decode** (JS redirect). Build the decoder first as a small spike. Fallback: the Stage 2 outlet lane (Bing `site:` queries, real URLs) covers SCMP and VentureBeat; Pandaily has no free alternative, so accept the short window and say so in the report (Q13, Q15). Stage 3 does not decode Google News links.
 3. **A feed cannot page** (tested: Pandaily about 2 days, SCMP about 3 days, both ignore `?paged=`). Cap paging at about 15 pages; stop at items older than 7 days. Fallback ladder: (1) Google News `site:<domain>+when:7d` (default; if the decoder fails, the Stage 2 outlet lane covers SCMP and VentureBeat); (2) history file, only works if Stage 1 runs more often than weekly; (3) accept the short window and print it in the report.
 4. **Bad or missing dates** let old stories in. Normalize to UTC, drop undated, count them in the report.
-5. **Noisy official feeds** (Google, Nvidia, Microsoft, Meta) raise AI cost. Keyword prefilter for those feeds only; skipped items logged.
+5. **Noisy general feeds** (Nvidia, Meta, SCMP) raise AI cost. Keyword prefilter for those feeds only; skipped items logged.
 6. **A feed disappears** (community Anthropic feed, Q9). Per-feed ERROR in the report.
 7. **HTML junk in snippets.** Strip tags.
 8. **Hugging Face dates and API.** `createdAt` can predate a model's public release, and the API is unofficial in practice (no guarantee of shape). zod check, per-feed ERROR, and the Stage 2 China lane (company-name searches) still covers category 7.

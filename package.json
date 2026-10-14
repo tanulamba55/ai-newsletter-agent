@@ -4,6 +4,12 @@
   "type": "module",
   "scripts": {
     "health": "node tests/health.ts",
-    "health:full": "node tests/health.ts --full"
+    "health:full": "node tests/health.ts --full",
+    "collect": "node src/stage1-collect.ts",
+    "test": "node --test \"tests/*.test.ts\""
+  },
+  "dependencies": {
+    "rss-parser": "^3.13.0",
+    "zod": "^4.6.7"
   }
 }

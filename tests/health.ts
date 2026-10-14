@@ -3,7 +3,10 @@
 //       node tests/health.ts --full   (also: Google link decoder, Bing site: counts, Jina)
 // It only READS and REPORTS. It never edits docs. Results are saved in data/health/<date>.json
 // so a later session can read them and we can discuss what to do.
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { makeResolver } from '../src/lib/resolveUrl.ts';
 
 const FULL = process.argv.includes('--full');
 const UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36';
@@ -112,20 +115,7 @@ async function checkStillBlocked(name: string, url: string, q: string): Promise<
 }
 
 // --- 3. Full-only checks
-// Compact copy of the decoder idea in scripts/spikes/decode-spike.mjs (new-style Google News links).
-async function decodeGoogleLink(link: string): Promise<string | null> {
-  const id = new URL(link).pathname.split('/').pop()!;
-  const html = await (await get(`https://news.google.com/rss/articles/${id}`)).text();
-  const sig = html.match(/data-n-a-sg="([^"]+)"/)?.[1];
-  const ts = html.match(/data-n-a-ts="([^"]+)"/)?.[1];
-  if (!sig || !ts) return null;
-  const inner = JSON.stringify(['garturlreq', [['X', 'X', ['X', 'X'], null, null, 1, 1, 'US:en', null, 1, null, null, null, null, null, 0, 1], 'X', 'X', 1, [1, 1, 1], 1, 1, null, 0, 0, null, 0], id, Number(ts), sig]);
-  const body = 'f.req=' + encodeURIComponent(JSON.stringify([[['Fbv4je', inner, null, 'generic']]]));
-  const res = await get('https://news.google.com/_/DotsSplashUi/data/batchexecute', { method: 'POST', body, headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' } });
-  const m = (await res.text()).match(/garturlres\\",\\"(https?:[^\\]+)/);
-  return m ? m[1] : null;
-}
-
+// Uses the real decoder (src/lib/resolveUrl.ts). A fresh temp cache file, so Google is really asked.
 async function checkDecoder(): Promise<Result> {
   const name = 'Google News link decoder';
   try {
@@ -133,10 +123,9 @@ async function checkDecoder(): Promise<Result> {
     const links = [...xml.matchAll(/<link>(https:\/\/news\.google\.com\/rss\/articles\/[^<]+)<\/link>/g)].map((m) => m[1]).slice(0, 3);
     if (links.length < 3) return { name, q: 'Q15', status: 'fail', note: `Google News search gave only ${links.length} links` };
     let ok = 0;
+    const decoder = makeResolver({ cacheFile: join(mkdtempSync(join(tmpdir(), 'health-')), 'links.json') });
     for (const l of links) {
-      const url = await decodeGoogleLink(l);
-      if (url && !url.includes('news.google.com')) ok++;
-      await new Promise((r) => setTimeout(r, 1500)); // polite pause
+      if ('url' in (await decoder.resolve(l))) ok++; // the decoder pauses between calls itself
     }
     return { name, q: 'Q15', status: ok === 3 ? 'pass' : ok > 0 ? 'warn' : 'fail', note: `${ok} of 3 links decoded` };
   } catch (e) {

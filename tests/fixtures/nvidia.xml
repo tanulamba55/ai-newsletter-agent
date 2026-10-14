@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:media="http://search.yahoo.com/mrss/">
+
+<channel>
+	<title>NVIDIA Blog</title>
+	<atom:link href="https://blogs.nvidia.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://blogs.nvidia.com/</link>
+	<description></description>
+	<lastBuildDate>Wed, 14 Oct 2026 06:32:08 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.3</generator>
+	<item>
+		<title>From Enterprise to Earthshot: UK’s Ecosystem Moves From Ambition to Application With NVIDIA</title>
+		<link>https://blogs.nvidia.com/blog/uk-ecosystem-deployment/</link>
+		
+		<dc:creator><![CDATA[Anthony Hills]]></dc:creator>
+		<pubDate>Wed, 14 Oct 2026 06:04:15 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[AI Infrastructure]]></category>
+		<category><![CDATA[Financial Services]]></category>
+		<category><![CDATA[Healthcare and Life Sciences]]></category>
+		<category><![CDATA[Inception]]></category>
+		<category><![CDATA[Nemotron]]></category>
+		<category><![CDATA[NVIDIA Blackwell]]></category>
+		<category><![CDATA[NVIDIA in Europe]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[Quantum Computing]]></category>
+		<category><![CDATA[Smart Spaces]]></category>
+		<guid isPermaLink="false">https://blogs.nvidia.com/?p=98835</guid>
+
+					<description><![CDATA[Across industries, the U.K. is putting the full stack to work — and the scale of deployment is growing fast, from enterprises transforming their businesses to startups solving some of the planet’s hardest problems. NVIDIA is putting that principle into practice, including through a five-year, $250 million compute commitment to strengthen the U.K.’s agentic safety [&#8230;]]]></description>
+										
+					
+		
+		
+				<media:content url="https://blogs.nvidia.com/wp-content/uploads/2026/10/uk-ecosystem-industries.png" type="image/png" width="1920" height="1080">
+			<media:thumbnail url="https://blogs.nvidia.com/wp-content/uploads/2026/10/uk-ecosystem-industries-842x450.png" width="842" height="450" />
+			<media:title type="html"><![CDATA[From Enterprise to Earthshot: UK’s Ecosystem Moves From Ambition to Application With NVIDIA]]></media:title>
+			<media:description type="html"></media:description>
+		</media:content>
+	</item><item>
+		<title>European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations</title>
+		<link>https://blogs.nvidia.com/blog/european-cities-agents-urban-operations/</link>
+		
+		<dc:creator><![CDATA[Charbel Aoun]]></dc:creator>
+		<pubDate>Wed, 14 Oct 2026 06:00:28 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Cosmos]]></category>
+		<category><![CDATA[Customer Stories]]></category>
+		<category><![CDATA[Digital Twin]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[Metropolis]]></category>
+		<category><![CDATA[NVIDIA in Europe]]></category>
+		<category><![CDATA[Omniverse]]></category>
+		<category><![CDATA[Physical AI]]></category>
+		<category><![CDATA[Smart Spaces]]></category>
+		<category><![CDATA[Sovereign AI]]></category>
+		<guid isPermaLink="false">https://blogs.nvidia.com/?p=98818</guid>
+
+					<description><![CDATA[Keeping a city running means making decisions that affect residents every day — from when to repair a road to how to use energy more efficiently. Across the EMEA region, cities and local software, infrastructure and integration partners are using NVIDIA accelerated computing to build physical AI agents and digital twins that help teams make [&#8230;]]]></description>
+										
+					
+		
+		<enclosure url="https://blogs.nvidia.com/wp-content/uploads/2026/10/linker-vision.mp4" length="11713326" type="video/mp4" />
+<enclosure url="https://blogs.nvidia.com/wp-content/uploads/2026/10/IKM®-�-Video-GTC-V.10.10.2-compressed.mp4" length="9439039" type="video/mp4" />
+<enclosure url="https://blogs.nvidia.com/wp-content/uploads/2026/10/Akila-CGCO-compressed.mp4" length="9480946" type="video/mp4" />
+<enclosure url="https://blogs.nvidia.com/wp-content/uploads/2026/10/honeywell.mp4" length="12085928" type="video/mp4" />
+
+				<media:content url="https://blogs.nvidia.com/wp-content/uploads/2026/10/gtc-berlin-smart-cities-blog.jpg" type="image/jpeg" width="1920" height="1080">
+			<media:thumbnail url="https://blogs.nvidia.com/wp-content/uploads/2026/10/gtc-berlin-smart-cities-blog-842x450.jpg" width="842" height="450" />
+			<media:title type="html"><![CDATA[European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations]]></media:title>
+			<media:description type="html"></media:description>
+		</media:content>
+	</item><item>
+		<title>All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark</title>
+		<link>https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates/</link>
+		
+		<dc:creator><![CDATA[Gerardo Delgado]]></dc:creator>
+		<pubDate>Tue, 13 Oct 2026 12:00:49 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Local AI]]></category>
+		<category><![CDATA[NVIDIA RTX]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[RTX Spark]]></category>
+		<guid isPermaLink="false">https://blogs.nvidia.com/?p=98768</guid>
+
+					<description><![CDATA[NVIDIA RTX Spark is a new beginning for the PC — a reinvention combining the capabilities of a gaming PC, a creative studio and a personal AI supercomputer into a single superchip. With up to 128GB of unified memory and 1 petaflop of AI compute, RTX Spark delivers the full stack of NVIDIA RTX and [&#8230;]]]></description>
+										
+					
+		
+		<enclosure url="https://blogs.nvidia.com/wp-content/uploads/2026/10/comfyui_nvidia_vfx_nodes_explainer_4k48_v4.mp4" length="11424589" type="video/mp4" />
+
+				<media:content url="https://blogs.nvidia.com/wp-content/uploads/2026/10/nv-raig-weekly-kit-10132026-nv-blog-1280x680-1.jpg" type="image/jpeg" width="1280" height="680">
+			<media:thumbnail url="https://blogs.nvidia.com/wp-content/uploads/2026/10/nv-raig-weekly-kit-10132026-nv-blog-1280x680-1-842x450.jpg" width="842" height="450" />
+			<media:title type="html"><![CDATA[All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark]]></media:title>
+			<media:description type="html"></media:description>
+		</media:content>
+	</item><item>
+		<title>NVIDIA Announces New Investments in France’s Startups</title>
+		<link>https://blogs.nvidia.com/blog/france-ecosystem-agentic-computing/</link>
+		
+		<dc:creator><![CDATA[Nat Ives]]></dc:creator>
+		<pubDate>Tue, 13 Oct 2026 05:00:31 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Customer Stories]]></category>
+		<category><![CDATA[Events]]></category>
+		<category><![CDATA[Inception]]></category>
+		<category><![CDATA[NVIDIA in Europe]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[Sovereign AI]]></category>
+		<guid isPermaLink="false">https://blogs.nvidia.com/?p=98737</guid>
+
+					<description><![CDATA[Companies in France are deploying agentic computing across industries spanning space, financial services, the public sector and scientific research, demonstrating how the country’s ecosystem has moved from ambition to application. France’s progress sits on deliberate groundwork. The AI Action Summit in February 2025 and Choose France Summits in 2025 and 2026 anchored major compute commitments [&#8230;]]]></description>
+										
+					
+		
+		
+				<media:content url="https://blogs.nvidia.com/wp-content/uploads/2026/10/france-ai-ecosystem-gtc-berlin-updated.jpeg" type="image/jpeg" width="1920" height="1080">
+			<media:thumbnail url="https://blogs.nvidia.com/wp-content/uploads/2026/10/france-ai-ecosystem-gtc-berlin-updated-842x450.jpeg" width="842" height="450" />
+			<media:title type="html"><![CDATA[NVIDIA Announces New Investments in France’s Startups]]></media:title>
+			<media:description type="html"></media:description>
+		</media:content>
+	</item><item>
+		<title>OCP Global Summit: Amid Ecosystem Adoption, NVIDIA Opens Vera Rubin Architecture to Help Scale AI Factories Worldwide</title>
+		<link>https://blogs.nvidia.com/blog/ocp-global-summit-vera-rubin-scale-ai-factories/</link>
+		
+		<dc:creator><![CDATA[NVIDIA Writers]]></dc:creator>
+		<pubDate>Mon, 12 Oct 2026 15:00:25 +0000</pubDate>
+				<category><![CDATA[AI Infrastructure]]></category>
+		<category><![CDATA[Hardware]]></category>
+		<category><![CDATA[Networking]]></category>
+		<category><![CDATA[Software]]></category>
+		<category><![CDATA[AI Factory]]></category>
+		<category><![CDATA[NVIDIA DSX]]></category>
+		<category><![CDATA[NVIDIA Spectrum-X Ethernet]]></category>
+		<category><![CDATA[NVIDIA Vera]]></category>
+		<category><![CDATA[NVIDIA Vera Rubin]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<guid isPermaLink="false">https://blogs.nvidia.com/?p=98706</guid>
+
+					<description><![CDATA[As AI factories grow from megawatts to gigawatts, building them takes more than advanced computing. Open standards are helping the industry scale AI infrastructure faster, more efficiently and more reliably. At the Open Compute Project (OCP) Global Summit, taking place in the San Jose McEnery Convention Center, NVIDIA announced new partnerships and contributions aimed at [&#8230;]]]></description>
+										
+					
+		
+		
+				<media:content url="https://blogs.nvidia.com/wp-content/uploads/2026/10/gpu-architecture-rolling-blog-kv-ocp-blog-1920x1080-5820310.jpg" type="image/jpeg" width="1920" height="1080">
+			<media:thumbnail url="https://blogs.nvidia.com/wp-content/uploads/2026/10/gpu-architecture-rolling-blog-kv-ocp-blog-1920x1080-5820310-842x450.jpg" width="842" height="450" />
+			<media:title type="html"><![CDATA[OCP Global Summit: Amid Ecosystem Adoption, NVIDIA Opens Vera Rubin Architecture to Help Scale AI Factories Worldwide]]></media:title>
+			<media:description type="html"></media:description>
+		</media:content>
+	</item><item>
+		<title>Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents</title>
+		<link>https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/</link>
+		
+		<dc:creator><![CDATA[NVIDIA Writers]]></dc:creator>
+		<pubDate>Thu, 08 Oct 2026 21:06:35 +0000</pubDate>
+				<category><![CDATA[Robotics]]></category>
+		<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[Into the Omniverse]]></category>
+		<category><![CDATA[NVIDIA Isaac Sim]]></category>
+		<category><![CDATA[Omniverse]]></category>
+		<category><![CDATA[OpenUSD]]></category>
+		<category><![CDATA[Physical AI]]></category>
+		<category><![CDATA[Simulation]]></category>
+		<guid isPermaLink="false">https://blogs.nvidia.com/?p=98677</guid>
+
+					<description><![CDATA[Turning a simulation idea into a working application means assembling assets, connecting physics and rendering, and checking that the scene behaves as intended. Developers are combining frontier AI models with NVIDIA Omniverse libraries to help carry out that work — building applications for exploring scenarios, investigating failures and improving designs. Developers direct AI agents through [&#8230;]]]></description>
+										
+					
+		
+		<enclosure url="https://blogs.nvidia.com/wp-content/uploads/2026/10/Humanoid-Warehouse.mp4" length="9339145" type="video/mp4" />
+<enclosure url="https://blogs.nvidia.com/wp-content/uploads/2026/10/zero-to-alpamayo-under-10MB.mp4" length="9692557" type="video/mp4" />
+<enclosure url="https://blogs.nvidia.com/wp-content/uploads/2026/10/0_00-0_004-hubble_rivermark_Real_Sim_no_loop.mp4" length="6517882" type="video/mp4" />
+
+				<media:content url="https://blogs.nvidia.com/wp-content/uploads/2026/10/Copy-of-nvidia-ov-x-astra-4up-KV-r1-press-4k-r2-scaled.png" type="image/png" width="2048" height="1152">
+			<media:thumbnail url="https://blogs.nvidia.com/wp-content/uploads/2026/10/Copy-of-nvidia-ov-x-astra-4up-KV-r1-press-4k-r2-842x450.png" width="842" height="450" />
+			<media:title type="html"><![CDATA[Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents]]></media:title>
+			<media:description type="html"></media:description>
+		</media:content>
+	</item><item>
+		<title>Rally Up: ‘Gears of War: E-Day’ Launches on GeForce NOW</title>
+		<link>https://blogs.nvidia.com/blog/geforce-now-thursday-gears-of-war-e-day/</link>
+		
+		<dc:creator><![CDATA[GeForce NOW Community]]></dc:creator>
+		<pubDate>Thu, 08 Oct 2026 13:00:46 +0000</pubDate>
+				<category><![CDATA[Gaming]]></category>
+		<category><![CDATA[Cloud Gaming]]></category>
+		<category><![CDATA[GeForce NOW]]></category>
+		<guid isPermaLink="false">https://blogs.nvidia.com/?p=98628</guid>
+
+					<description><![CDATA[Gears of War: E-Day leads the charge on GeForce NOW this week, bringing Marcus Fenix and Dom Santiago’s first fight against the Locust Horde to the cloud with GeForce RTX-powered performance. A new way to join the action is also coming: Fire TV users will soon be able to purchase GeForce NOW memberships directly through [&#8230;]]]></description>
+										
+					
+		
+		
+				<media:content url="https://blogs.nvidia.com/wp-content/uploads/2026/10/gfn-thursday-10-8-blog-1920x1080-logo.jpg" type="image/jpeg" width="1920" height="1080">
+			<media:thumbnail url="https://blogs.nvidia.com/wp-content/uploads/2026/10/gfn-thursday-10-8-blog-1920x1080-logo-842x450.jpg" width="842" height="450" />
+			<media:title type="html"><![CDATA[Rally Up: ‘Gears of War: E-Day’ Launches on GeForce NOW]]></media:title>
+			<media:description type="html"></media:description>
+		</media:content>
+	</item><item>
+		<title>NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents</title>
+		<link>https://blogs.nvidia.com/blog/local-ai-rtx-spark-microsoft-windows-event/</link>
+		
+		<dc:creator><![CDATA[Gerardo Delgado]]></dc:creator>
+		<pubDate>Wed, 07 Oct 2026 18:45:28 +0000</pubDate>
+				<category><![CDATA[AI]]></category>
+		<category><![CDATA[Agentic AI]]></category>
+		<category><![CDATA[Artificial Intelligence]]></category>
+		<category><![CDATA[Local AI]]></category>
+		<category><![CDATA[NVIDIA RTX]]></category>
+		<category><![CDATA[Open Source]]></category>
+		<category><![CDATA[RTX AI Garage]]></category>
+		<category><![CDATA[RTX Spark]]></category>
+		<guid isPermaLink="false">https://blogs.nvidia.com/?p=98615</guid>
+
+					<description><![CDATA[At a Microsoft event in San Francisco on Wednesday, NVIDIA founder and CEO Jensen Huang and Microsoft CEO Satya Nadella outlined how NVIDIA and Microsoft are co-engineering hardware and software for AI agents to run on Windows PCs. NVIDIA was founded because of Windows, Huang said. Now AI agents are coming to Windows. “If you [&#8230;]]]></description>
+										
+					
+		
+		
+				<media:content url="https://blogs.nvidia.com/wp-content/uploads/2026/10/nvidia-rtx-spark-microsoft-event-3840x2160-1-scaled.png" type="image/png" width="2048" height="1152">
+			<media:thumbnail url="https://blogs.nvidia.com/wp-content/uploads/2026/10/nvidia-rtx-spark-microsoft-event-3840x2160-1-842x450.png" width="842" height="450" />
+			<media:title type="html"><![CDATA[NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents]]></media:title>
+			<media:description type="html"></media:description>
+		</media:content>
+	</item>
+	</channel>
+</rss>

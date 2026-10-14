@@ -1,0 +1,158 @@
+[
+  {
+    "name": "MarkTechPost",
+    "url": "https://www.marktechpost.com/feed/",
+    "type": "media",
+    "paging": "paged"
+  },
+  {
+    "name": "AI Business",
+    "url": "https://aibusiness.com/rss.xml",
+    "type": "media"
+  },
+  {
+    "name": "AI Models (Substack)",
+    "url": "https://aimodels.substack.com/feed",
+    "type": "media"
+  },
+  {
+    "name": "TechCrunch AI",
+    "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+    "type": "media"
+  },
+  {
+    "name": "VentureBeat",
+    "url": "https://news.google.com/rss/search?q=site:venturebeat.com+when:7d&hl=en-US&gl=US&ceid=US:en",
+    "type": "media",
+    "paging": "google-news"
+  },
+  {
+    "name": "SCMP",
+    "url": "https://www.scmp.com/rss/5/feed/",
+    "google_news_url": "https://news.google.com/rss/search?q=site:scmp.com+when:7d&hl=en-US&gl=US&ceid=US:en",
+    "type": "media",
+    "region": "china",
+    "paging": "google-news",
+    "prefilter": true
+  },
+  {
+    "name": "TechNode",
+    "url": "https://technode.com/feed/",
+    "type": "media",
+    "region": "china"
+  },
+  {
+    "name": "Pandaily",
+    "url": "https://pandaily.com/feed/",
+    "google_news_url": "https://news.google.com/rss/search?q=site:pandaily.com+when:7d&hl=en-US&gl=US&ceid=US:en",
+    "type": "media",
+    "region": "china",
+    "paging": "google-news"
+  },
+  {
+    "name": "ChinaTalk",
+    "url": "https://www.chinatalk.media/feed",
+    "type": "media",
+    "region": "china"
+  },
+
+  {
+    "name": "OpenAI",
+    "url": "https://openai.com/news/rss.xml",
+    "type": "official"
+  },
+  {
+    "name": "Google AI",
+    "url": "https://blog.google/innovation-and-ai/technology/ai/rss/",
+    "type": "official"
+  },
+  {
+    "name": "Nvidia",
+    "url": "https://blogs.nvidia.com/feed/",
+    "type": "official",
+    "prefilter": true
+  },
+  {
+    "name": "Hugging Face blog",
+    "url": "https://huggingface.co/blog/feed.xml",
+    "type": "official"
+  },
+  {
+    "name": "Mistral",
+    "url": "https://mistral.ai/news/rss",
+    "type": "official"
+  },
+  {
+    "name": "Apple ML",
+    "url": "https://machinelearning.apple.com/rss.xml",
+    "type": "official"
+  },
+  {
+    "name": "Meta",
+    "url": "https://about.fb.com/news/feed/",
+    "type": "official",
+    "prefilter": true
+  },
+  {
+    "name": "Microsoft",
+    "url": "https://news.microsoft.com/source/topics/ai/feed/",
+    "type": "official"
+  },
+  {
+    "name": "Anthropic (community feed)",
+    "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml",
+    "fallback_url": "https://cdn.jsdelivr.net/gh/Olshansk/rss-feeds@main/feeds/feed_anthropic_news.xml",
+    "type": "official"
+  },
+
+  {
+    "name": "TechCrunch Y Combinator tag",
+    "url": "https://techcrunch.com/tag/y-combinator/feed/",
+    "type": "media",
+    "lane": "yc"
+  },
+  {
+    "name": "YC blog",
+    "url": "https://www.ycombinator.com/blog/rss",
+    "type": "media",
+    "lane": "yc"
+  },
+  {
+    "name": "TechCrunch Startups",
+    "url": "https://techcrunch.com/category/startups/feed/",
+    "type": "media",
+    "lane": "yc"
+  },
+  {
+    "name": "Crunchbase News",
+    "url": "https://news.crunchbase.com/feed/",
+    "type": "media",
+    "lane": "yc"
+  },
+
+  {
+    "name": "Hugging Face models (China labs)",
+    "kind": "hf-models",
+    "type": "official",
+    "region": "china",
+    "orgs": [
+      "deepseek-ai",
+      "Qwen",
+      "moonshotai",
+      "zai-org",
+      "MiniMaxAI",
+      "tencent",
+      "baidu",
+      "ByteDance-Seed",
+      "XiaomiMiMo",
+      "stepfun-ai",
+      "inclusionAI"
+    ]
+  },
+  {
+    "name": "Hugging Face models (open-weights labs)",
+    "kind": "hf-models",
+    "type": "official",
+    "orgs": ["mistralai", "meta-llama", "openai", "google", "allenai"]
+  }
+]
