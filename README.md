@@ -33,7 +33,7 @@ Every week, produce one PDF that gives a busy reader:
 7. China models and updates
 8. YC-backed AI startups
 
-Each story belongs to exactly one category. The rules for choosing it are in [SPEC.md](SPEC.md).
+Each story belongs to exactly one category. The rules for choosing it are in [SPEC.md](docs/SPEC.md).
 
 ## How it works
 
@@ -57,18 +57,20 @@ The JSON files are the contract between stages: each stage reads the previous on
 
 - Build **one stage at a time** and wait for approval before the next.
 - Code is TypeScript (Node 23.6), simple, and commented in plain language.
-- Free tools wherever possible. Required: the Claude API (Stage 3). Possible paid backups (web search, browser fetch) and the terms-of-use decision are listed in [SPEC.md](SPEC.md) under Resources and approvals. Free workarounds that may break later are in the register at the top of [open-questions.md](open-questions.md).
-- Open decisions live in [open-questions.md](open-questions.md).
+- Free tools wherever possible. Required: the Claude API (Stage 3). Possible paid backups (web search, browser fetch) and the terms-of-use decision are listed in [SPEC.md](docs/SPEC.md) under Resources and approvals. Free workarounds that may break later are in the register at the top of [open-questions.md](docs/open-questions.md).
+- Open decisions live in [open-questions.md](docs/open-questions.md).
 
 ## Where to find things
 
 | File | What it holds |
 |---|---|
 | [README.md](README.md) | This overview |
-| [SPEC.md](SPEC.md) | Shared rules: categories, selection rules, importance rubric, JSON shapes |
-| [specs/](specs/) | One spec per stage: steps, risks, tools, testing, success check |
-| [open-questions.md](open-questions.md) | Unresolved and temporary decisions |
+| [LESSONS.md](LESSONS.md) | What past sessions learned, with sources |
+| [SPEC.md](docs/SPEC.md) | Shared rules: categories, selection rules, importance rubric, JSON shapes |
+| [specs/](docs/specs/) | One spec per stage: steps, risks, tools, testing, success check |
+| [open-questions.md](docs/open-questions.md) | Unresolved and temporary decisions |
 | [CLAUDE.md](CLAUDE.md) | Working rules for Claude Code |
+| [docs/sessions/](docs/sessions/) | Dated handoff and review notes |
 
 ## Planned folder layout
 
@@ -77,6 +79,8 @@ config/   feeds.json, categories.json, searches.json   (editable settings)
 src/      stage1-collect.ts, stage2-search.ts, stage3-process.ts, lib/
 data/     items.json, items_extra.json, stories.json, skipped.json
 tests/    saved sample data and automated checks
+docs/     SPEC.md, open-questions.md, specs/, sessions/   (documents, already in place)
+scripts/  spikes/ for throwaway experiments
 ```
 
 ## Known weak spots
@@ -85,7 +89,7 @@ tests/    saved sample data and automated checks
 - **Blocked sites:** KnowTechie and VentureBeat's own feed are blocked. VentureBeat is read through a Google News fallback, and KnowTechie is skipped for now.
 - **Anthropic** has no official RSS feed, so a community-made one is used for now.
 
-Details and fallbacks are in the stage specs and [open-questions.md](open-questions.md).
+Details and fallbacks are in the stage specs and [open-questions.md](docs/open-questions.md).
 
 ## How to run
 
