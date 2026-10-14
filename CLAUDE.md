@@ -17,7 +17,7 @@ Weekly AI newsletter: collect news, summarize with sources, produce a designed P
 
 - Start: read LESSONS.md and the newest file in docs/sessions/ (one dated file per session). Re-check cheap facts you will rely on (feed HTTP status, newest item date) before building on them
 - End: add new lessons to LESSONS.md, each with a source and a status (verified date / from notes / changed). No source, no entry. Then write a short dated handoff note in docs/sessions/: what was done, what is next, what is open
-- Health: run `npm run health` (quick, about 4 s, one line if all is well) at the start of a session. Run `npm run health:full` (about 10 s) before building a stage. It only reports; results are saved in data/health/. Never edit docs from its results on your own: show me the result and we discuss what goes into the docs
+- Health: first check the age of the newest file in data/health/. Under about 24 hours old with no fail: trust it, skip the run. Older, missing, or it showed a fail: run `npm run health` (quick, about 4 s) at session start, and `npm run health:full` (about 10 s) before building a stage. It only reports; results are saved in data/health/. Never edit docs from its results on your own: show me the result and we discuss what goes into the docs
 - One home per fact: LESSONS.md holds only what was learned, with a pointer. Rules live in docs/SPEC.md, open decisions in docs/open-questions.md. Never copy a spec rule into LESSONS.md
 
 ## Architecture (keep these separate)
