@@ -1,0 +1,9 @@
+{
+  "name": "ai-newsletter-agent",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "health": "node tests/health.ts",
+    "health:full": "node tests/health.ts --full"
+  }
+}
