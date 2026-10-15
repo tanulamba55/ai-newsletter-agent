@@ -1,0 +1,775 @@
+{
+  "companies": [
+    {
+      "id": 39117,
+      "name": "Godpack",
+      "slug": "godpack",
+      "website": "https://godpack.gg/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/5cf26da4e502d22859bba31a1834d27e69baf813.png",
+      "oneLiner": "100% EV fair gacha",
+      "longDescription": "",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/godpack",
+      "batch": "W27",
+      "tags": [
+        "Marketplace",
+        "Consumer",
+        "Trading"
+      ],
+      "status": "Active",
+      "industries": [
+        "Consumer"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 38589,
+      "name": "Keres",
+      "slug": "keres",
+      "website": "https://www.keresaero.com/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/d410d4ceb3965f8c5b5e653e10007865ff03aaf9.png",
+      "oneLiner": "Kill the drone, keep the jet. Reusable unmanned interceptors.",
+      "longDescription": "Keres (KAIR-eez) builds reusable unmanned jet interceptors for air defense. The Garmur launches on cue, closes at jet speed, positively identifies and kills drones and cruise missiles, then lands to fly again. It gives commanders a fighter-class response at a fraction of the cost.",
+      "teamSize": 3,
+      "url": "https://www.ycombinator.com/companies/keres",
+      "batch": "F26",
+      "tags": [
+        "Airplanes",
+        "Aerospace",
+        "Defense"
+      ],
+      "status": "Active",
+      "industries": [
+        "Industrials",
+        "Defense"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "Denver, CO, USA"
+      ],
+      "badges": []
+    },
+    {
+      "id": 38492,
+      "name": "Mantle",
+      "slug": "mantle-2",
+      "website": "",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/7073e1cf7c2495368d081bd479283a8c160179f2.png",
+      "oneLiner": "The pit crew for machines and robots.",
+      "longDescription": "Mantle is a full-stack field service company that deploys, fixes and maintains machines for the companies that build them. We're not a marketplace or software tool, we own uptime directly to provide better, more reliable service without burdening your engineers on support calls. \r\n\r\n$500B+ a year is spent to keep machines running in the US, we're coming for all of it.\r\n",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/mantle-2",
+      "batch": "F26",
+      "tags": [
+        "Hardware",
+        "Robotics",
+        "AI",
+        "Industrial"
+      ],
+      "status": "Active",
+      "industries": [
+        "Industrials",
+        "Manufacturing and Robotics"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 38391,
+      "name": "Boxes.dev",
+      "slug": "boxesdev",
+      "website": "https://boxes.dev",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/9949c6b8484314fd6471d7e95c251af659528195.png",
+      "oneLiner": "Cloud development environments for AI coding",
+      "longDescription": "Port your development environment to the cloud. Give every coding agent on its own cloud computer, bring your Codex or Claude subscription, start agents from Slack and Linear, and manage them from your desktop, phone, or terminal.",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/boxesdev",
+      "batch": "F26",
+      "tags": [
+        "Artificial Intelligence",
+        "Developer Tools",
+        "B2B"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Engineering, Product and Design"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 38127,
+      "name": "DeepMark",
+      "slug": "deepmark",
+      "website": "https://www.deepmark.me",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/4dfcb45ad1cf6b4da58c1a44a770eb98ac4ec79b.png",
+      "oneLiner": "A live watermark inside AI voice that survives phone calls",
+      "longDescription": "DeepMark is the authentication layer for AI voice. When an AI agent speaks, we embed a compact, machine-readable ID directly into the audio, not in metadata, which gets stripped the moment a file is touched. The ID resolves to a trust record, so a bank, a call center, or the person on the line can verify in real time who the agent is.",
+      "teamSize": 5,
+      "url": "https://www.ycombinator.com/companies/deepmark",
+      "batch": "F26",
+      "tags": [
+        "Deep Learning",
+        "B2B",
+        "Cybersecurity"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Security"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada",
+        "Remote",
+        "Partly Remote"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 38061,
+      "name": "Maritime",
+      "slug": "maritime",
+      "website": "https://maritime.sh/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/d8ff801ef7e9094077a292c8bed3e86ce7e01f00.png",
+      "oneLiner": "The managed cloud for AI agents.",
+      "longDescription": "Maritime is a fully managed cloud platform for startups selling AI agents. We help them run thousands of agents, each in its own isolated, persistent computer, starting at $1 per agent per month, with all underlying infrastructure, scaling, sleep/wake, and monitoring handled automatically.",
+      "teamSize": 3,
+      "url": "https://www.ycombinator.com/companies/maritime",
+      "batch": "F26",
+      "tags": [
+        "Developer Tools",
+        "Cloud Computing",
+        "Infrastructure"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Infrastructure"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": [
+        "highlightWomen"
+      ]
+    },
+    {
+      "id": 37999,
+      "name": "RATLOG",
+      "slug": "ratlog",
+      "website": "",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/c91e646aa134e7ed3da1082d56c2a3cdd68f8337.png",
+      "oneLiner": "Reusable heavy-lift rockets",
+      "longDescription": "",
+      "teamSize": 4,
+      "url": "https://www.ycombinator.com/companies/ratlog",
+      "batch": "F26",
+      "tags": [
+        "Commercial Space Launch"
+      ],
+      "status": "Active",
+      "industries": [
+        "Industrials",
+        "Aviation and Space"
+      ],
+      "regions": [
+        "Germany",
+        "Europe"
+      ],
+      "locations": [
+        "Dresden, Germany"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37995,
+      "name": "Sintropix",
+      "slug": "sintropix",
+      "website": "https://sintropix.com/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/8e0565abd52682e4249720fb4eb646f17fbbdd65.png",
+      "oneLiner": "Autonomous accounting platform for global companies",
+      "longDescription": "Autonomous accounting platform for global companies. We close your books and give you financial clarity while you run your business. ",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/sintropix",
+      "batch": "F26",
+      "tags": [
+        "Artificial Intelligence",
+        "Fintech",
+        "B2B"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Finance and Accounting"
+      ],
+      "regions": [
+        "Chile",
+        "Latin America"
+      ],
+      "locations": [
+        "Santiago, Santiago Metropolitan Region, Chile"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37864,
+      "name": "OpenHack",
+      "slug": "openhack",
+      "website": "https://openhack.com",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/3665e2fbd95736778f3748429060face49d74d6d.png",
+      "oneLiner": "Always-on AI security engineer",
+      "longDescription": "OpenHack is an always on AI Security Engineer. OpenHack understands your business, system design and developer intent like a real security engineer. It ingests all this context to find the hardest vulnerabilities through AI codebase scanning, AI pentesting and Supply Chain Security. It verifies and prioritizes vulnerabilities automatically, and filters out false positives like a real security engineer drastically reducing overhead.",
+      "teamSize": 1,
+      "url": "https://www.ycombinator.com/companies/openhack",
+      "batch": "F26",
+      "tags": [
+        "Artificial Intelligence",
+        "DevSecOps",
+        "Cybersecurity"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Security"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37830,
+      "name": "Tilo",
+      "slug": "tilo",
+      "website": "https://tilo.so",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/5ee5f7b68452b3800941d6ce5bfbfacd28c318f2.png",
+      "oneLiner": "A Linux-based, AI-native operating system.",
+      "longDescription": "Tilo is a Linux-based operating system built for AI agents to work alongside people. On Tilo, computer use is up to 15x cheaper than on a normal OS.\r\n\r\nToday agents use computers the way people do. They take screenshots and click through apps, which is slow, expensive, and brittle. In Tilo, every app exports actions, so agents work over MCP while people use the UI. You still see what each agent does in your apps, and anything it changes can be undone.\r\n\r\nAny number of people and agents can work in one workspace in real time, across apps. Tilo runs as your OS, in our cloud, or headless on your machine, and you can open and share any workspace from the browser.",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/tilo",
+      "batch": "F26",
+      "tags": [
+        "AIOps",
+        "AI"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Infrastructure"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada",
+        "Remote",
+        "Partly Remote"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37732,
+      "name": "Hundred",
+      "slug": "hundred",
+      "website": "http://hundred.systems/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/f9f26995d92445a7e77c0839448bb04ca0c89f08.png",
+      "oneLiner": "100% automated inspection for consumer electronics parts",
+      "longDescription": "Hundred is an automated inspection system for the components that make up consumer devices like phones, smartwatches, and laptops. Hundred helps factories cut waste and prevent line-down issues by catching sub-millimeter cosmetic defects before parts reach the assembly line. \r\n\r\nIn the consumer electronics industry, designs change so fast that traditional machine vision can't keep up, forcing factories to rely on manual inspection, literally people checking parts under microscopes to sort out bad parts. Human inspectors miss roughly 15% of defects, and a single bad part can turn a finished device into scrap. Hundred is replacing manual inspection with an imaging rig that scans an entire shipping tray of parts at once. \r\n\r\nThe Hundred rig blocks ambient light and uses varied controlled lighting configurations to detect defects smaller than 100µm on a range of materials. The controlled environment means Hundred only needs to scan a single good part before it can find defects, categorize them, and assess their severity accurately.\r\n\r\nDefects cost U.S. discrete manufacturers $45 billion a year, a problem Hundred's CEO, Erica, saw firsthand as a mechanical engineer designing devices at Meta, Google, and Magic Leap. She met Imani, Hundred's CPO, at Columbia University's admitted-students day in 2017 and Imani went on to spend five years at Twitch building software that handles billions of requests a day. Erica later met Iris, Hundred's CTO, in the Bay Area. Iris worked as a quant at Citadel before pivoting to study at Imperial College London where she researched machine learning on 3D meshes and other structured data. Together, they're building Hundred because manual inspection shouldn't still exist in 2026.",
+      "teamSize": 3,
+      "url": "https://www.ycombinator.com/companies/hundred",
+      "batch": "F26",
+      "tags": [
+        "Hard Tech",
+        "Hardware",
+        "Machine Learning",
+        "Computer Vision",
+        "Industrial"
+      ],
+      "status": "Active",
+      "industries": [
+        "Industrials",
+        "Manufacturing and Robotics"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": [
+        "highlightBlack",
+        "highlightLatinx",
+        "highlightWomen"
+      ]
+    },
+    {
+      "id": 37601,
+      "name": "Lark",
+      "slug": "lark-2",
+      "website": "https://larkagents.com",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/658417946c5809d1681eb90f9636442c2526cc5c.png",
+      "oneLiner": "Lark - AI agents that automate workflows for wholesale distributors",
+      "longDescription": "Lark deploys AI agents that automate manual workflows for wholesale distributors, everything from customer quotes to inventory managment. Our agents work with existing ERP systems, learning from each distributor’s historical data and the team’s decisions. Together, these agents can run a distributor’s entire operation.",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/lark-2",
+      "batch": "F26",
+      "tags": [
+        "Artificial Intelligence",
+        "B2B",
+        "Supply Chain"
+      ],
+      "status": "Active",
+      "industries": [
+        "Industrials"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37600,
+      "name": "Redoubt Insurance",
+      "slug": "redoubt-insurance",
+      "website": "https://www.redoubt.insure",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/1ee4cc24084cdd9a8a0fe0d70982248244d6fd3a.png",
+      "oneLiner": "Commercial insurance for small businesses",
+      "longDescription": "Redoubt is a commercial insurance agency for small businesses. We believe our customers are our most important business partners, and they deserve our full attention. Machines can already handle the boring parts, the next step is to continually learn from experience. ",
+      "teamSize": 0,
+      "url": "https://www.ycombinator.com/companies/redoubt-insurance",
+      "batch": "F26",
+      "tags": [
+        "Insurance",
+        "AI"
+      ],
+      "status": "Active",
+      "industries": [
+        "Fintech",
+        "Insurance"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "Salt Lake City, UT, USA"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37566,
+      "name": "The Agentic Data Co.",
+      "slug": "the-agentic-data-co",
+      "website": "https://theagenticdatacompany.com",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/72ebbcacfd48c52bf6fc298c17ddf035a00bbc08.png",
+      "oneLiner": "Training Data For Speech Models.",
+      "longDescription": "We design and collect audio datasets for training speech models.",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/the-agentic-data-co",
+      "batch": "F26",
+      "tags": [
+        "Artificial Intelligence",
+        "Conversational AI",
+        "ML"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37533,
+      "name": "HABU",
+      "slug": "habu",
+      "website": "https://buildhabu.com",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/afbe75a6c02bccd51c23fca509a7ba3de70f6920.png",
+      "oneLiner": "Like Crosby, but for real estate development",
+      "longDescription": "HABU is an AI-native real estate development firm that helps real estate investors deploy capital to build housing faster, at lower cost, and with higher yield. \r\n\r\nWe're building an internal AI-native operating system that completes 90%+ of development tasks at 95% faster processing speeds while delivering the same outcomes customers expect externally: high yield, low risk projects. We're selling the outcome, not the inputs to the outcome. \r\n\r\nDevelopers are service providers for white-collar investors: they find land, construct buildings, and operate and sell them for a profit. Our customers don't care how the projects are sourced or managed, only that they are completed on time and produce the forecasted returns. \r\n\r\nWe use agentic workflows, geospatial analysis and mapping, and development-specific workflow automation to manage the end-to-end process. The result is 5x more projects per FTE compared to a non-AI developer, 20% faster project schedules, and 10-15% lower total project costs. \r\n\r\nWe're *not* long term property owners, strictly the service provider (fee/merchant developer).\r\n\r\n$160B was deployed into multifamily in 2025 and $534B into commercial real estate overall. Developers naturally have high operating margins and we are building to be the most operationally and capital efficient developer in the country. \r\n\r\nStarting first with multifamily in Phoenix and then expanding nationally.  ",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/habu",
+      "batch": "F26",
+      "tags": [
+        "Hard Tech",
+        "Real Estate",
+        "Housing"
+      ],
+      "status": "Active",
+      "industries": [
+        "Real Estate and Construction"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada",
+        "Remote",
+        "Partly Remote"
+      ],
+      "locations": [
+        "Phoenix, AZ, USA"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37468,
+      "name": "Ageospatial",
+      "slug": "ageospatial",
+      "website": "https://ageospatial.com/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/74f6c9e933a7a4a3c86d3c81c6964ca26989ba26.png",
+      "oneLiner": "Physical intelligence for every decision with Geospatial AI.",
+      "longDescription": "Ageospatial helps organizations value the risk on their physical assets (properties, land, infrastructure) remotely using satellite imagery.\r\n\r\n97% of commercial properties are never physically inspected because it's too slow and expensive. So insurers price risk based on what the client or broker tells them, and about half the time at least one of those records is wrong. The result is mispricing, fraud, and an estimated $36B in premium leakage every year in the US alone, which gets exposed the moment a disaster hits.\r\n\r\nUpload a list of addresses and their GeoAI reads satellite and street-level imagery, maps, real-time data, public records and the insurer's own data to determine what's really there, which natural and human hazards surround it, what changed over time, and which properties are worth inspecting. Each property becomes a living record that underwriting, claims and pricing teams can trace from past to present. Ageospatial deploys inside carriers and MGAs as an AI-native service, so insurers get outcomes delivered.",
+      "teamSize": 1,
+      "url": "https://www.ycombinator.com/companies/ageospatial",
+      "batch": "F26",
+      "tags": [
+        "Artificial Intelligence",
+        "Computer Vision",
+        "Insurance"
+      ],
+      "status": "Active",
+      "industries": [
+        "Fintech",
+        "Insurance"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada",
+        "Remote",
+        "Fully Remote"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37467,
+      "name": "Cyclon",
+      "slug": "cyclon",
+      "website": "https://cyclon.ai/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/6d4a1648c00832ca1c9d1a963380c29de9ec30af.png",
+      "oneLiner": "a phone where AI is the interface",
+      "longDescription": "Cyclon is rebuilding the phone around AI. Instead of opening apps and tapping through screens, you tell your phone what you want and it does it for you. With one touch, you can spin up AI agents to control your phone or handle tasks in the background. AI isn’t just inside an app - it’s the phone itself.",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/cyclon",
+      "batch": "F26",
+      "tags": [
+        "Artificial Intelligence",
+        "Hardware",
+        "Consumer"
+      ],
+      "status": "Active",
+      "industries": [
+        "Consumer",
+        "Consumer Electronics"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37435,
+      "name": "GrayPass",
+      "slug": "graypass",
+      "website": "https://www.graypass.org",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/824e97773961053f47e92f9a1a6fd805d2328d0b.png",
+      "oneLiner": "Verify that the expected person is in control before key actions.",
+      "longDescription": "Login tells you who signed in. GrayPass verifies the expected person is still in control before consequential actions happen. We use cognitive biometrics like typing rhythm, cursor movement, scrolling, and response timing alongside session and device context to continuously establish assurance.\r\n\r\nBefore actions like approving a payment, changing admin permissions, exporting sensitive data, or letting an AI agent act on someone’s behalf, GrayPass returns allow, challenge, hold, or deny and produces signed proof tied to that action.",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/graypass",
+      "batch": "F26",
+      "tags": [
+        "Biometrics",
+        "Identity",
+        "Infrastructure"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Infrastructure"
+      ],
+      "regions": [
+        "Canada",
+        "America / Canada"
+      ],
+      "locations": [
+        "Toronto, ON, Canada"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37434,
+      "name": "Ascenix",
+      "slug": "ascenix",
+      "website": "https://www.ascenix.co/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/9df54ccfcc3e9d39a078433b991341cfb364eb78.png",
+      "oneLiner": "Clinical intelligence layer for skilled nursing facilities.",
+      "longDescription": "Ascenix is the all-in-one incident platform that turns unstructured EHR data into automated reporting, reimbursement recovery, compliance flagging, and clinical insight. We’re already live in 50 homes and scaling across North America. We connect to systems like PointClickCare and analyze the notes nurses already write, adapting to any note structure and any compliance or reporting requirement.\r\n\r\nWe help teams identify documentation gaps, uncover missed revenue opportunities and spot emerging resident risks, while reducing time spent reviewing charts and building spreadsheets. Our goal is to improve residents’ quality of life by helping care homes reach their full clinical, financial and operational potential.",
+      "teamSize": 7,
+      "url": "https://www.ycombinator.com/companies/ascenix",
+      "batch": "F26",
+      "tags": [
+        "Digital Health",
+        "Healthcare IT"
+      ],
+      "status": "Active",
+      "industries": [
+        "Healthcare",
+        "Healthcare IT"
+      ],
+      "regions": [
+        "Canada",
+        "America / Canada"
+      ],
+      "locations": [
+        "Toronto, ON, Canada"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37401,
+      "name": "Theseus Robotics",
+      "slug": "theseus-robotics",
+      "website": "https://theseus.bot/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/0985c4e6c6734c8e730ab16124ab8ee4c127df5c.png",
+      "oneLiner": "Humanoids to restock retail shelves & pick orders",
+      "longDescription": "Theseus Robotics creates the OS & Physical AI to deploys humanoids to automate menial tasks in supermarkets. During the day, our robotics pick orders for e-grocery orders. Overnight, they restocks shelves with goods from the back warehouse. ",
+      "teamSize": 7,
+      "url": "https://www.ycombinator.com/companies/theseus-robotics",
+      "batch": "F26",
+      "tags": [
+        "Hard Tech",
+        "Robotics",
+        "Retail Tech"
+      ],
+      "status": "Active",
+      "industries": [
+        "Industrials",
+        "Manufacturing and Robotics"
+      ],
+      "regions": [
+        "Switzerland",
+        "Europe"
+      ],
+      "locations": [
+        "Zurich, Switzerland"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37274,
+      "name": "Decent",
+      "slug": "decent-com",
+      "website": "https://decent.com",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/786d073f3a76012e5179c5021d6a0d82644d8d1f.png",
+      "oneLiner": "Your health plan should get better year-round. Not just once a year.",
+      "longDescription": "Decent is a health insurance brokerage for small businesses. We compare every way to cover your team, show what each one costs, and then keep improving your plan all year. We're paid by insurance companies, so we're free to you.",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/decent-com",
+      "batch": "F26",
+      "tags": [
+        "Artificial Intelligence",
+        "Fintech",
+        "Health Tech",
+        "B2B",
+        "Health Insurance"
+      ],
+      "status": "Active",
+      "industries": [
+        "Fintech",
+        "Insurance"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada",
+        "Remote",
+        "Partly Remote"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37273,
+      "name": "Frontrunner",
+      "slug": "frontrunner",
+      "website": "https://usefr.com/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/a9d85abe63d98ee4de2bf8d852d5f9cf4ad82e21.png",
+      "oneLiner": "Cursor for GTM",
+      "longDescription": "Build agents that research accounts, find prospects, run campaigns, update your CRM, qualify inbound, and more. Connect them to the systems you already use and let them work alongside your GTM team.\r\n\r\nEngineer your revenue factory on Frontrunner. ",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/frontrunner",
+      "batch": "F26",
+      "tags": [
+        "Artificial Intelligence",
+        "Sales",
+        "Marketing"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Sales"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": [
+        "highlightWomen"
+      ]
+    },
+    {
+      "id": 37272,
+      "name": "The Subvocal Company",
+      "slug": "the-subvocal-company",
+      "website": "https://subvocal.company",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/cacc4ab40596ece6b5c77c3f350ee25ddf5cb079.png",
+      "oneLiner": "Talk to your computer without talking",
+      "longDescription": "We're building a silent speech wearable that lets you talk to your computer at the speed of voice, but silently and completely imperceptibly to everyone around you.",
+      "teamSize": 3,
+      "url": "https://www.ycombinator.com/companies/the-subvocal-company",
+      "batch": "F26",
+      "tags": [
+        "Hard Tech"
+      ],
+      "status": "Active",
+      "industries": [
+        "Consumer",
+        "Consumer Electronics"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": [
+        "isHiring"
+      ]
+    },
+    {
+      "id": 37238,
+      "name": "Terse",
+      "slug": "useterse",
+      "website": "https://www.useterse.ai/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/21712c0189bc22ccc5e9bfeb15e67a527077b8f7.png",
+      "oneLiner": "Durable state for AI agents",
+      "longDescription": "We build infrastructure to power agentic systems such as software factories, multiplayer agent frameworks and agent coordination.",
+      "teamSize": 2,
+      "url": "https://www.ycombinator.com/companies/useterse",
+      "batch": "F26",
+      "tags": [
+        "API",
+        "Infrastructure",
+        "AI"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Infrastructure"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada"
+      ],
+      "locations": [
+        "New York City"
+      ],
+      "badges": []
+    },
+    {
+      "id": 37236,
+      "name": "Spine",
+      "slug": "spine",
+      "website": "https://www.joinspine.ai/",
+      "smallLogoUrl": "https://bookface-images.s3.amazonaws.com/small_logos/e227fdb2c6620d1b088142bc179befd86c865fee.png",
+      "oneLiner": "We run benefits, payroll & compliance for startups, for free",
+      "longDescription": "Spine runs benefits, payroll, and compliance for startups for free.\r\n\r\nWe do the work by giving teams dedicated senior HR and benefits specialists who operate on top of their existing HRIS (Rippling, Deel, Gusto, ADP). We help companies find better-fit, more cost-effective health plans - reducing healthcare costs by around 15% on average - while running payroll, handling compliance, managing open enrollment, and supporting employees directly in Slack.\r\n\r\n30+ startups already use Spine to lower healthcare costs and take hours of back-office work off their teams. Learn more at joinspine.ai or email onur@joinspine.ai",
+      "teamSize": 0,
+      "url": "https://www.ycombinator.com/companies/spine",
+      "batch": "F26",
+      "tags": [
+        "Human Resources",
+        "Insurance",
+        "SMB"
+      ],
+      "status": "Active",
+      "industries": [
+        "B2B",
+        "Human Resources"
+      ],
+      "regions": [
+        "United States of America",
+        "America / Canada",
+        "Remote",
+        "Partly Remote"
+      ],
+      "locations": [
+        "San Francisco"
+      ],
+      "badges": [
+        "isHiring"
+      ]
+    }
+  ],
+  "nextPage": "https://api.ycombinator.com/v0.1/companies?page=2",
+  "page": 1,
+  "totalPages": 253
+}
