@@ -24,10 +24,14 @@ Stage 3 reads the output of Stages 1 and 2, so it processes everything once.
 JSON files are the contract between stages. Code shapes live in
 `src/lib/schemas.ts` (zod) once built; this file describes them in words.
 
-## Categories (8; 7 active in the demo)
+## Categories (9 defined; 8 active in the demo: 1-7 and 9)
 Demo scope (15 Oct 2026): category 8 is deferred (see docs/deferred.md). Until it returns, rule 1
 below applies only to YC product launches (-> cat 4); any other news about a YC company goes
-through rules 2-7 like every other item. Stage 4 leaves out a category with no stories.
+through rules 2-8 like every other item. Stage 4 leaves out a category with no stories.
+Category 9 (AI infrastructure and research) was added on 15 Oct 2026 after the first real week
+showed important chip, data-center and research stories with no category (about 41 of 466 titles
+mentioned chips, infrastructure or research). It takes the number 9 so that 8 stays reserved for
+YC-backed startups.
 
 Each story gets exactly ONE category. Precedence (first match wins):
 1. YC-backed company: product launch -> cat 4, anything else -> cat 8
@@ -39,6 +43,8 @@ Each story gets exactly ONE category. Precedence (first match wins):
 5. Closed/frontier LLM update -> cat 5
 6. AI video, UI or design tool -> cat 2
 7. Funding and startups (non-YC) -> cat 1
+8. Chips, data centers and other AI infrastructure, or research (papers, benchmarks,
+   studies) -> cat 9
 
 Names:
 1. Funding and startups
@@ -49,7 +55,8 @@ Names:
 6. Open-source model updates
 7. China models and updates
 8. YC-backed AI startups (everything except launches: funding, hiring,
-   acquisitions, etc.)
+   acquisitions, etc.) - deferred for the demo
+9. AI infrastructure and research (chips, data centers, papers, benchmarks) - added 15 Oct 2026
 
 ## Selection rules
 - Last 7 days only (rolling window from run time)

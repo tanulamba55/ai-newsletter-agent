@@ -9,7 +9,7 @@ A weekly newsletter on AI, built automatically. It finds the most important AI s
 Every week, produce one PDF that gives a busy reader:
 - The AI stories that actually mattered this week, not everything that was published.
 - For each story: a 2-3 sentence **summary**, 1-2 sentences on **why it matters**, and a clickable link to the **original source**.
-- Stories grouped into 8 categories, so readers can jump to what they care about.
+- Stories grouped into categories, so readers can jump to what they care about (9 defined; the 16 Oct demo uses 8 of them, see the list below and SPEC.md).
 
 ## What "good" looks like
 
@@ -31,7 +31,8 @@ Every week, produce one PDF that gives a busy reader:
 5. LLM model updates
 6. Open-source model updates
 7. China models and updates
-8. YC-backed AI startups
+8. YC-backed AI startups (deferred for the demo)
+9. AI infrastructure and research (added 15 Oct 2026)
 
 Each story belongs to exactly one category. The rules for choosing it are in [SPEC.md](docs/SPEC.md).
 

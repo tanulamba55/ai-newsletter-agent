@@ -22,6 +22,9 @@ Decided 15 Oct 2026 to have Stages 1-3 (and the Stage 4 PDF if possible) ready f
 | Known-news check at 70% and recall measurement | Needs a manual list of the week's big stories | First real test week (Q11, Q20) |
 | Re-test of about 25 Bing queries from the real weekly machine | Weekly machine is the dev machine for now | Before Stage 5 (Q20) |
 
+## Added for the demo (not a cut)
+- Category 9, AI infrastructure and research (chips, data centers, papers, benchmarks): added 15 Oct 2026 after the first real week showed important stories (for example "6 Big Intel, AMD And Nvidia AI Data Center Announcements At OCP 2026", "TSMC net profit hit record") that fit none of the original categories. Stage 2 has no search lane for it; its stories come from Stage 1 feeds (Nvidia blog, MarkTechPost, news outlets) and the topic and official searches. Add search queries for it after the demo if recall is thin.
+
 ## Small known weak spots kept as they are
 - Federal Register is a low-yield source (nearly always empty for AI titles). Category 3 relies on news search and the EU feed.
 - English keyword filter cannot read Chinese; Chinese-language items are kept and the AI step reads them.

@@ -91,3 +91,11 @@ Short facts learned while working on this project. Read at the start of every se
 | Hacker News Algolia: the date filter must be URL-encoded (`numericFilters=created_at_i%3E<unix time>`); a bare `>` returns HTTP 400. Searching "Launch HN" also returns Show HN and other posts, so titles are checked against "Launch HN: Name (YC F24)" | curl 15 Oct, `tests/stage2-yc.test.ts` | verified 2026-10-15 |
 | 8 of 237 items have Chinese-language titles (mostly from the Google backup for `site:technode.com`). The English keyword filter cannot match Chinese words, so it must not be used to drop them. Kept on purpose: the AI step reads Chinese | `data/items_extra.json` | verified 2026-10-15 |
 | No Anthropic API key exists (only `FIRECRAWL_API_KEY` in `.env`); `google-chrome` is installed at `/usr/bin/google-chrome`; Node packages are only rss-parser and zod | shell checks 15 Oct (key names only) | verified 2026-10-15 |
+
+## Stage 3 prepare, first real run (15 Oct 2026)
+| Lesson | Source | Status |
+|---|---|---|
+| Real data: 503 items (Stage 1 269, Stage 2 234) -> 467 in date -> 466 candidates. 36 Stage 1 items had aged out because `data/items.json` was a day old, so re-run Stage 1 right before the real Stage 3 run | `npm run stage3:prepare` 15 Oct | verified 2026-10-15 |
+| Same-story headlines rarely match closely: 0 near-identical-title merges (threshold 0.8) and only 7 same-story groups at 0.5. At 0.35 there are 15 groups of 2-5 outlets (Apple Intelligence in China x4, Alibaba Qwen glasses x3, Duvo funding x3) with one wrong join (two funding stories). Used only for ordering and slicing, so a wrong join is harmless; triage decides the real groups | `data/stage3/candidates.json` clusters at both settings | verified 2026-10-15 (one week of data) |
+| The 7 original categories had no home for chips, data centers and research: about 41 of 466 titles mention them (for example CRN "6 Big Intel, AMD And Nvidia AI Data Center Announcements At OCP 2026", TSMC record profit). Category 9 was added | keyword count over candidates, user decision 15 Oct | verified 2026-10-15 (rough keyword count, includes noise) |
+| Slice splitter first left a 3-item last slice (12, 12, 12, 3) because it aimed at a fixed size; it now aims at an even share of what is left | `tests/stage3-prepare.test.ts` | verified 2026-10-15 |
