@@ -1,6 +1,6 @@
 # Stage 5: Publish and schedule weekly
 
-Status: idea only - not planned in detail
+Status: deferred (out of scope for the 16 Oct 2026 demo; the pipeline stops at the PDF, see docs/deferred.md)
 Depends on (SPEC.md): Pipeline
 
 ## Purpose

@@ -2,7 +2,7 @@
 
 A weekly newsletter on AI, built automatically. It finds the most important AI stories of the last 7 days, writes a short summary of each, and puts them into one designed PDF.
 
-**Status:** planning complete for Stages 1-3, no code written yet.
+**Status:** Stage 1 built (14 Oct 2026). Stage 2 built and run live (15 Oct), awaiting manual acceptance. Stages 3 and 4 are being built for the demo on 16 Oct 2026 with a reduced scope (7 categories, AI step run by Claude Code agents instead of the paid API). Stage 5 deferred. What was cut and why: [docs/deferred.md](docs/deferred.md).
 
 ## Objective
 
@@ -45,11 +45,11 @@ Each story belongs to exactly one category. The rules for choosing it are in [SP
 
 | Stage | Job | Output | Status |
 |---|---|---|---|
-| 1. Collect | Read the last 7 days from media and official-company RSS feeds | items.json | Planned |
-| 2. Search | Fill gaps the feeds miss: YC news, Chinese AI companies, official announcements without RSS, regulation, video/design | items_extra.json | Planned |
-| 3. Process | Remove duplicates, pick what matters, sort into categories, find the original source, write summaries | stories.json | Planned |
-| 4. PDF | Turn stories.json into a designed PDF | PDF | Idea only |
-| 5. Publish | Send or post the PDF, run weekly | Published PDF | Idea only |
+| 1. Collect | Read the last 7 days from media and official-company RSS feeds | items.json | Built |
+| 2. Search | Fill gaps the feeds miss: YC news, Chinese AI companies, official announcements without RSS, regulation, video/design | items_extra.json | Built (awaiting acceptance) |
+| 3. Process | Remove duplicates, pick what matters, sort into categories, find the original source, write summaries | stories.json | In progress (demo scope) |
+| 4. PDF | Turn stories.json into a designed PDF | PDF | Planned (demo scope) |
+| 5. Publish | Send or post the PDF, run weekly | Published PDF | Deferred |
 
 The JSON files are the contract between stages: each stage reads the previous one's file, so any stage can be rebuilt or fixed without touching the others.
 
@@ -69,28 +69,36 @@ The JSON files are the contract between stages: each stage reads the previous on
 | [SPEC.md](docs/SPEC.md) | Shared rules: categories, selection rules, importance rubric, JSON shapes |
 | [specs/](docs/specs/) | One spec per stage: steps, risks, tools, testing, success check |
 | [open-questions.md](docs/open-questions.md) | Unresolved and temporary decisions |
+| [deferred.md](docs/deferred.md) | What was cut for the 16 Oct demo, why, and what brings it back |
 | [CLAUDE.md](CLAUDE.md) | Working rules for Claude Code |
 | [docs/sessions/](docs/sessions/) | Dated handoff and review notes |
 
-## Planned folder layout
+## Folder layout
 
 ```
-config/   feeds.json, categories.json, searches.json   (editable settings)
-src/      stage1-collect.ts, stage2-search.ts, stage3-process.ts, lib/
-data/     items.json, items_extra.json, stories.json, skipped.json
-tests/    saved sample data and automated checks
+config/   feeds.json, keywords.json (built); searches.json, categories.json (planned)
+src/      stage1-collect.ts and lib/ (built); stage2-search.ts, stage3-process.ts (planned)
+data/     generated, git-ignored: items.json, skipped_stage1.json, health_stage1.json, cache/, health/
+tests/    stage1.test.ts, fixtures/ (saved real feeds), health.ts (outside-service check)
 docs/     SPEC.md, open-questions.md, specs/, sessions/   (documents, already in place)
-scripts/  spikes/ for throwaway experiments
+scripts/  spikes/ for throwaway experiments (now: firecrawl-spike.ts)
 ```
 
 ## Known weak spots
 
 - **YC news:** no dedicated YC news feed exists, so category 8 may often be thin.
-- **Blocked sites:** KnowTechie and VentureBeat's own feed are blocked. VentureBeat is read through a Google News fallback, and KnowTechie is skipped for now.
+- **Blocked sites:** KnowTechie and VentureBeat's own feed are blocked. VentureBeat is read through Google News (about 31 real articles a week), and KnowTechie is skipped. Firecrawl was tested and does not unblock KnowTechie (Q7).
 - **Anthropic** has no official RSS feed, so a community-made one is used for now.
 
 Details and fallbacks are in the stage specs and [open-questions.md](docs/open-questions.md).
 
 ## How to run
 
-Not available yet. This section is filled in when Stage 1 is built.
+```
+npm install
+npm run collect            # Stage 1, live (first run about 10 min, reruns seconds)
+node src/stage1-collect.ts --offline   # replay today's cached downloads
+npm test                   # 29 offline tests
+npm run health             # quick check of outside services (health:full for more)
+```
+Stage 1 writes `data/items.json`, `data/skipped_stage1.json`, `data/health_stage1.json` and prints a table per feed.

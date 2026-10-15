@@ -1,0 +1,35 @@
+[
+  { "lane": "china", "query": "DeepSeek", "category_hint": "7", "max_results": 10 },
+  { "lane": "china", "query": "Alibaba Qwen", "category_hint": "7", "max_results": 10 },
+  { "lane": "china", "query": "Moonshot AI Kimi", "category_hint": "7", "max_results": 10 },
+  { "lane": "china", "query": "Zhipu AI GLM", "category_hint": "7", "max_results": 10 },
+  { "lane": "china", "query": "MiniMax AI", "category_hint": "7", "max_results": 10 },
+  { "lane": "china", "query": "ByteDance Doubao", "category_hint": "7", "max_results": 10 },
+  { "lane": "china", "query": "Tencent Hunyuan", "category_hint": "7", "max_results": 10 },
+  { "lane": "china", "query": "Baidu Ernie", "category_hint": "7", "max_results": 10 },
+
+  { "lane": "official", "query": "AMD AI announcement", "max_results": 10 },
+  { "lane": "official", "query": "Databricks AI", "max_results": 10 },
+  { "lane": "official", "query": "Meta AI Llama", "max_results": 10 },
+  { "lane": "official", "query": "Apple Intelligence", "max_results": 10 },
+  { "lane": "official", "query": "Microsoft AI Copilot", "max_results": 10 },
+  { "lane": "official", "query": "Anthropic Claude", "max_results": 10 },
+
+  { "lane": "topic", "query": "Sora OpenAI video", "category_hint": "2", "max_results": 10 },
+  { "lane": "topic", "query": "Runway AI video", "category_hint": "2", "max_results": 10 },
+  { "lane": "topic", "query": "Figma AI", "category_hint": "2", "max_results": 10 },
+  { "lane": "topic", "query": "Adobe Firefly", "category_hint": "2", "max_results": 10 },
+  { "lane": "topic", "query": "Midjourney", "category_hint": "2", "max_results": 10 },
+  { "lane": "topic", "query": "EU AI Act", "category_hint": "3", "max_results": 10 },
+  { "lane": "topic", "query": "AI regulation Congress", "category_hint": "3", "max_results": 10 },
+  { "lane": "topic", "query": "AI executive order White House", "category_hint": "3", "max_results": 10 },
+  { "lane": "topic", "query": "state AI law", "category_hint": "3", "max_results": 10 },
+  { "lane": "topic", "query": "China AI regulation rules", "category_hint": "3", "max_results": 10 },
+
+  { "lane": "yc", "query": "\"YC-backed\" AI startup", "max_results": 10 },
+  { "lane": "yc", "query": "\"Y Combinator\" AI funding", "max_results": 10 },
+
+  { "lane": "outlet", "query": "site:scmp.com", "prefilter": true, "max_results": 10 },
+  { "lane": "outlet", "query": "site:venturebeat.com", "max_results": 10 },
+  { "lane": "outlet", "query": "site:technode.com", "max_results": 10 }
+]

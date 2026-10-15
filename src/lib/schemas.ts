@@ -18,9 +18,10 @@ export const ItemSchema = z.object({
 });
 export type Item = z.infer<typeof ItemSchema>;
 
-// A dropped item with the reason (skipped_stage1.json). Reasons used in Stage 1 are listed here.
+// A dropped item with the reason (skipped_stage1.json, skipped_stage2.json).
+// Reasons used in Stages 1 and 2 are listed here; the full list lives in docs/SPEC.md.
 export const SkippedSchema = z.object({
-  reason: z.enum(['undated', 'not_ai', 'undecodable_link']),
+  reason: z.enum(['undated', 'not_ai', 'undecodable_link', 'aggregator']),
   title: z.string(),
   url: z.string(),
   feed: z.string(),
@@ -69,6 +70,78 @@ export const FeedConfigSchema = z.object({
   prefilter: z.boolean().default(false), // keep only items that look AI-related
 });
 export type FeedConfig = z.infer<typeof FeedConfigSchema>;
+
+// --- Stage 2 ---
+
+// One search in config/searches.json.
+export const SearchConfigSchema = z.object({
+  lane: z.enum(['china', 'official', 'topic', 'yc', 'outlet']),
+  query: z.string(),
+  category_hint: z.string().optional(), // category number as text, for example "7"; advice for Stage 3 only
+  max_results: z.number().default(10),
+  prefilter: z.boolean().default(false), // keep only items that look AI-related (general-news outlets)
+});
+export type SearchConfig = z.infer<typeof SearchConfigSchema>;
+
+// What Stage 2 reports per provider (inside health_stage2.json).
+export const ProviderHealthSchema = z.object({
+  name: z.string(), // for example "Bing News", "Google News"
+  status: z.enum(['OK', 'ERROR']),
+  queries: z.number(), // how many times this provider was asked
+  items: z.number(), // items it returned (before merging)
+  note: z.string().optional(), // for example "3 of 28 queries failed"
+});
+export type ProviderHealth = z.infer<typeof ProviderHealthSchema>;
+
+// Health guard file that Stage 3 reads (data/health_stage2.json). Shape described in docs/SPEC.md.
+export const Health2Schema = z.object({
+  stage: z.literal(2),
+  run_at: z.string(),
+  total_items: z.number(),
+  providers: z.array(ProviderHealthSchema),
+  providers_error: z.number(),
+  fallbacks_fired: z.number(), // queries where the Google News backup ran
+  undecodable_links: z.number(),
+});
+export type Health2 = z.infer<typeof Health2Schema>;
+
+// config/yc.json: how many recent YC batches count as "YC-backed", and which launch tags mean AI.
+export const YcConfigSchema = z.object({
+  recent_batches: z.number(),
+  ai_tags: z.array(z.string()),
+});
+export type YcConfig = z.infer<typeof YcConfigSchema>;
+
+// One page of ycombinator.com/launches.json (unofficial, Q10). Only the fields we use; zod fails loudly if they change.
+export const LaunchesPageSchema = z.object({
+  page: z.number(), // starts at 0
+  nbPages: z.number(),
+  hits: z.array(
+    z.object({
+      title: z.string(),
+      tagline: z.string().nullish(),
+      slug: z.string(),
+      created_at: z.string(),
+      search_path: z.string().nullish(), // the launch page address
+      company: z.object({ name: z.string(), url: z.string().nullish(), batch: z.string().nullish(), tags: z.array(z.string()).default([]) }),
+    }),
+  ),
+});
+
+// One page of api.ycombinator.com/v0.1/companies (unofficial, Q10). Newest batch first.
+export const CompaniesPageSchema = z.object({
+  totalPages: z.number(),
+  companies: z.array(z.object({ name: z.string(), batch: z.string(), website: z.string().nullish(), tags: z.array(z.string()).default([]) })),
+});
+
+// federalregister.gov/api/v1/documents.json (official US government API). Only the fields we use.
+export const FederalRegisterSchema = z.object({
+  results: z.array(z.object({ title: z.string(), abstract: z.string().nullish(), html_url: z.string(), publication_date: z.string(), type: z.string().nullish() })),
+});
+
+// What we keep in data/cache/yc-companies.json for the Stage 3 YC tagger.
+export const YcCompanySchema = z.object({ name: z.string(), batch: z.string(), website: z.string().nullable(), tags: z.array(z.string()) });
+export type YcCompany = z.infer<typeof YcCompanySchema>;
 
 export const KeywordsSchema = z.object({
   case_sensitive: z.array(z.string()), // matched exactly, e.g. "AI"

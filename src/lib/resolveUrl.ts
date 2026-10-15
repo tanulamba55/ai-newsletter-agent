@@ -1,6 +1,6 @@
 // Turns a Google News link (news.google.com/rss/articles/<id>) into the real article URL.
 // Google News feeds only give us redirect links, and every story needs its original source URL.
-// Method proven in scripts/spikes/decode-spike.mjs (95 of 95 links on 13 Oct 2026).
+// Method first proven in a spike on 13 Oct 2026 (spike deleted; tests/stage1.test.ts and tests/health.ts now cover it).
 // WARNING: step 2 uses an undocumented Google endpoint. It can break without notice (Q15).
 import { readJsonOr, writeJsonAtomic } from './files.ts';
 

@@ -6,6 +6,7 @@
     "health": "node tests/health.ts",
     "health:full": "node tests/health.ts --full",
     "collect": "node src/stage1-collect.ts",
+    "search": "node src/stage2-search.ts",
     "test": "node --test \"tests/*.test.ts\""
   },
   "dependencies": {

@@ -27,11 +27,12 @@ Short facts learned while working on this project. Read at the start of every se
 | Jina Reader answers HTTP 200 for the Pandaily homepage | Q7 | verified 2026-10-14 for status only; page content not checked |
 
 ## Google News link decoder (Q15)
-- Works: 3 of 3 links decoded for each of VentureBeat, SCMP and Pandaily with `scripts/spikes/decode-spike.mjs`. Source: Q15, handoff stage1. Status: verified 2026-10-14. This is a re-test of 9 links; the 95-of-95 figure from 13 Oct is `from notes`.
+- Works: 3 of 3 links decoded for each of VentureBeat, SCMP and Pandaily with the spike script (since deleted; `tests/health.ts` now runs the real decoder). Source: Q15, handoff stage1. Status: verified 2026-10-14. This is a re-test of 9 links; the 95-of-95 figure from 13 Oct is `from notes`.
 - Google News search size on 14 Oct: VentureBeat 100 items, SCMP 100, Pandaily 51. Q15 says Pandaily 48 on 13 Oct. Status: changed (small, expected; the feed moves daily).
 - It uses an undocumented Google endpoint, so a pass today is no promise for next week. Keep the health guard.
 
 ## Things that did not match the notes (read these)
+- Doc status note (14 Oct 2026, after Stage 1 built): open-questions Q8, Q9, Q13, Q15, Q17 and the Stage 1 spec were updated with the live-run results below (about 31 real VentureBeat articles, not 100; spike "95 of 95" overstated).
 - **Raw GitHub:** the handoff says `raw.githubusercontent.com` was refused from the dev machine (Q9). On 14 Oct it returned 200. Status: changed. Likely intermittent. Keep the jsDelivr mirror as `fallback_url`; it also returned 200.
 - **Bing `site:` counts are not stable.** Q20 and the review file say scmp 12, technode 7, venturebeat 3, pandaily 0 (13 Oct). On 14 Oct: scmp 12, technode 1, venturebeat 7, pandaily 0. Status: changed. Use them as a rough guide only. This supports the Q20 plan to re-test from the weekly machine.
 - **KnowTechie** still fails at connection level (curl returned no HTTP code), as Q7 says. Status: verified 2026-10-14. Cloudflare as the cause is `from notes`; not tested.
@@ -47,7 +48,7 @@ Short facts learned while working on this project. Read at the start of every se
 | Lesson | Source | Status |
 |---|---|---|
 | The Google News query `site:venturebeat.com` is padded: 69 of its 100 entries have an empty title (" - VentureBeat") and decode to site files (`/_next/static/chunks/*.js`), not articles. Real articles: about 31. The "100 VentureBeat items" in Q8/Q15 counts these | live run 14 Oct (`data/health_stage1.json`, report note); decoder reply read by hand | verified 2026-10-14. Changed from Q8/Q15 ("100") |
-| The spike's success test (URL is not `news.google.com`) passed those site files, so "95 of 95 decoded" overstated; the decoder itself works on real articles (VentureBeat 31/31, SCMP 100/100, Pandaily 48/48 decoded, 0 undecodable) | `scripts/spikes/decode-spike.mjs`, live run | verified 2026-10-14 (count of real articles); the 13 Oct figure is `from notes` |
+| The spike's success test (URL is not `news.google.com`) passed those site files, so "95 of 95 decoded" overstated; the decoder itself works on real articles (VentureBeat 31/31, SCMP 100/100, Pandaily 48/48 decoded, 0 undecodable) | spike script (deleted), live run | verified 2026-10-14 (count of real articles); the 13 Oct figure is `from notes` |
 | Google's decoder reply double-escapes `=` and `&` in the URL (`\\u003d`). The spike's text match cut such URLs at the first backslash. `resolveUrl.ts` parses the JSON instead | raw reply inspected; test in `tests/stage1.test.ts` | verified 2026-10-14 |
 | Hugging Face API returned 500/504 for every org (even `limit=5`) at about 07:30 UTC, an hour after the health check passed. It is intermittent. Live mapping only tested on a saved Qwen response | curl and two full runs 14 Oct | verified 2026-10-14. Back later the same day: live run gave 4 model items (Qwen/tencent 2, open-weights labs 2), 0 feeds in ERROR |
 | SCMP `/rss/5/feed/` is titled "World - South China Morning Post". With the Google News copy, SCMP is 140 of 386 items, almost all non-AI | feed header; items.json | verified 2026-10-14 |
@@ -76,3 +77,17 @@ Short facts learned while working on this project. Read at the start of every se
 |---|---|---|
 | Raw GitHub was refused again for the Anthropic community feed and the jsDelivr `fallback_url` took over (report showed Fallback YES, 3 items). So raw GitHub is intermittent from the dev machine (OK at about 06:30 and 07:30 UTC, refused at 10:54). The fallback works as designed | user's `npm run collect` output | verified 2026-10-14 |
 | User's manual run: 269 items, 0 feeds in ERROR, 0 undecodable, all 29 tests pass; manual checks passed | user's pasted output | verified 2026-10-14 |
+
+## Stage 2 build and first live run (15 Oct 2026, one machine)
+| Lesson | Source | Status |
+|---|---|---|
+| Full live run of 28 Bing queries plus YC and government sources took 2 min 27 s with 1 s between Bing queries and 0.3 s between YC pages. Bing answered 28 of 28; the Google backup ran for 3 queries; 0 undecodable links. Offline replay gave identical items (237) | `npm run search` live, then `--offline`, 15 Oct | verified 2026-10-15 (one run, one machine; Q20 stays WATCH) |
+| Bing results contain many aggregator reprints: 53 of about 290 usable results were msn.com (36) or yahoo.com (17) and were dropped. Bing's own source names are messy (`eu.36kr`, `Washington Examiner on MSN`) | `data/skipped_stage2.json`, tests fixture `bing_deepseek.xml` | verified 2026-10-15 |
+| `note.com` (a Japanese blogging platform that reposts news) supplied 18 of 237 items. Other low-quality sources seen: Crypto Briefing 5, eu.36kr 5, ainvest 4, konsulteer.com 4, Seeking Alpha 3, shattered.io 3. Stage 3 source rules decide what counts as original | `data/items_extra.json` outlet count | verified 2026-10-15 |
+| Federal Register is a low-yield source: 529 documents were published 8-15 Oct; 5 mention "artificial intelligence" anywhere in the text (27 in four weeks) and none has AI in the title. The API works; category 3 will lean on news search and the EU feed. Title filter is needed: first hit of the term search was an ITC patent notice | live API calls 15 Oct (term and 7 or 28 day windows) | verified 2026-10-15 |
+| EU digital-strategy feed: 10 entries, only 1 inside 7 days with AI in the title. Its description is the whole page as HTML; the short teaser sentence is the usable snippet | `tests/fixtures/eu_digital.xml` | verified 2026-10-15 |
+| YC launches JSON (unofficial, Q10): page numbers start at 0 (`?page=1` is the second page), 20 per page, about 3,300 launches in all; every launch is listed, not only AI ones. Tags seen on AI launches: `Artificial Intelligence`, `AI`, `Machine Learning`, `Conversational AI`. Several clearly AI launches carry no AI tag (for example "Reading glasses for your AI agent"), so a tag-only rule misses them | `tests/fixtures/yc_launches_p1.json`, live run `not_ai` list | verified 2026-10-15 |
+| YC companies API: 253 pages of 25, newest batch first (`W27`, `F26`, ...); `?batch=W26` filters. Last 12 batches took 69 page requests and gave 1,712 companies | live run, `data/cache/yc-companies.json` | verified 2026-10-15 |
+| Hacker News Algolia: the date filter must be URL-encoded (`numericFilters=created_at_i%3E<unix time>`); a bare `>` returns HTTP 400. Searching "Launch HN" also returns Show HN and other posts, so titles are checked against "Launch HN: Name (YC F24)" | curl 15 Oct, `tests/stage2-yc.test.ts` | verified 2026-10-15 |
+| 8 of 237 items have Chinese-language titles (mostly from the Google backup for `site:technode.com`). The English keyword filter cannot match Chinese words, so it must not be used to drop them. Kept on purpose: the AI step reads Chinese | `data/items_extra.json` | verified 2026-10-15 |
+| No Anthropic API key exists (only `FIRECRAWL_API_KEY` in `.env`); `google-chrome` is installed at `/usr/bin/google-chrome`; Node packages are only rss-parser and zod | shell checks 15 Oct (key names only) | verified 2026-10-15 |

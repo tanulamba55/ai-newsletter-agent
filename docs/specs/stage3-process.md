@@ -1,11 +1,18 @@
 # Stage 3: Process items into stories
 
-Status: approved (plan) - not built
+Status: approved (plan); demo-scope build in progress (15 Oct 2026)
 Depends on (SPEC.md): Categories + precedence, Selection rules, Importance rubric, Story date, AI engine, Story + Skipped contracts
-Known gaps (open-questions.md): Q14, Q15, Q16, Q18, Q19
+Known gaps (open-questions.md): Q14, Q15, Q16, Q18, Q19, Q21
+
+## Demo scope (15 Oct 2026)
+The full design below stays the target. For the demo it is cut down; every cut is listed in docs/deferred.md.
+- **AI steps run as independent Claude Code agents, not the API** (no key yet; Q21). Code and AI meet only through files, so the same files are filled by an API call later without rewriting anything: `data/stage3/candidates.json` (code writes) -> `triage_<n>.json` (AI) -> `articles.json` (code fetches survivors) -> `summaries_<n>.json` (AI) -> `data/stories.json` (code checks and writes). Agent instructions: `docs/prompts/stage3-triage.md` and `docs/prompts/stage3-summary.md`.
+- Three code programs instead of one: `src/stage3-prepare.ts` (steps 0-2b), `src/stage3-rank.ts` (steps 3 validation, 4, 5), `src/stage3-finish.ts` (steps 7-8). `src/lib/llm.ts` is not built.
+- Cut: category 8 and the YC tagger (step 2c; cat 4 launches still arrive tagged from Stage 2), number check, AI retries, token budget, golden set, Readability/cheerio/jsdom (light own HTML-to-text and link extraction), the optional Q19 final dedupe is built (code only) because triage slices cannot see each other.
+- Kept: health guard, date filter, URL and title dedupe, item cap (about 500), ranking, top 4 per category then trim to 2-3, original-source rule with aggregator blocklist and trusted outlets, supporting-quote check, skip log merge.
 
 ## Purpose
-Turn the raw items (about 300-500 after Stages 1 and 2) into at most 24 clean stories (2-3 per category), each with an original source.
+Turn the raw items (about 400-500 after Stages 1 and 2) into at most 24 clean stories (2-3 per category), each with an original source.
 
 ## Input
 `data/items.json` and `data/items_extra.json` (Stage 2, if present), `data/health_stage1.json` and `data/health_stage2.json`, `data/cache/yc-companies.json` (for the YC tagger).
@@ -21,7 +28,7 @@ Cheap code first, AI only where judgment is needed.
 | 0 | Health guard | code | Read the two health files. Stop before any AI call if the SPEC.md Whole pipeline conditions hit; `--force` overrides (never in scheduled runs; Q16). |
 | 1 | Date filter | code | Drop anything older than 7 days. |
 | 2 | Quick dedupe + sort | code | Same URL or near-identical title = one item. Then sort by title similarity so near-duplicates land in the same triage batch. |
-| 2b | Item cap | code | If more than the cap (about 400, set at build) remain, send newest and official first; the rest are logged `over_item_cap`. |
+| 2b | Item cap | code | If more than the cap (about 500, set at build; raised from 400 on 14 Oct 2026 because Stage 1 gives about 270 items and Stage 2 about 250 raw) remain, send newest and official first; the rest are logged `over_item_cap`. |
 | 2c | YC tagger | code | Match company names from the YC directory cache (recent batches only, SPEC.md Categories) against every item and add `yc_match {company, batch}`. The name must appear in the item's title or snippet. It is a suggestion; triage confirms. Generic names can collide. |
 | 3 | Triage (AI call 1) | AI, batches of ~40 | Sees title + snippet only (+ `yc_match` and `category_hint` if present). Returns keep/skip, ONE category (precedence list; YC rule needs the company name in title or snippet), importance 1-10, same-story group id. Score 5 or more keeps; the cutoff is tuned with the golden set. |
 | 4 | Rank | code | Per category by score; ties by number of outlets covering it, official first. Take top 4 per category. |
