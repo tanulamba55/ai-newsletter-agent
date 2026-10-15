@@ -66,7 +66,7 @@ A file with a week of headlines from every working feed; report shows each feed'
 - All 18 listed feeds responded on 14 Oct 2026. AI Models Substack and Mistral had nothing newer than 6 Oct (quiet, not broken). TechCrunch AI, TechCrunch Startups and Crunchbase News also work.
 - Anthropic community feed: `raw.githubusercontent.com` was refused once from the dev machine (connection reset) but returned 200 on 14 Oct; may be intermittent. The jsDelivr mirror stays as `fallback_url` (newest item 8 Oct).
 - Hugging Face API, last 7 days: Qwen 1, tencent 1, mistralai 2, nvidia 9, most other labs 0 (sparse, low noise).
-- Google News links need decoding. Spike (13 Oct 2026): 95 of 95 decoded; Google News gave VentureBeat 100, SCMP 100, Pandaily 48 items in 7 days (Q15).
+- Google News links need decoding. Live run (14 Oct 2026): decoder works on real articles (VentureBeat 31, SCMP 100, Pandaily 48, 0 undecodable). The VentureBeat query returns 100 entries but 69 are empty-title site files, which Stage 1 ignores (Q15). The 13 Oct spike figure "95 of 95" counted those files as successes.
 
 ## Tools
 All free. Node 23.6 built-in `fetch` and `node:test`; `rss-parser` (read RSS and Atom); `zod` (JSON shapes). Stage 1 needs no AI and no paid service.

@@ -13,9 +13,9 @@ Free workarounds that are fine today but depend on something we do not control. 
 | Workaround | Fragile because | Watch signal | Q | Paid backup? |
 |---|---|---|---|---|
 | Bing News RSS (main search) | Unofficial; can block or change format; tested on one machine only | Recall under 70%, or errors in 2 runs in a row | Q20 | Yes |
-| Google News RSS + link decoder | Decoder uses an undocumented Google endpoint (95 of 95 links decoded on 13 Oct 2026); Google can change it without notice | Decoder fails on fresh links, or items stay as `news.google.com` links | Q15 | Yes |
+| Google News RSS + link decoder | Decoder uses an undocumented Google endpoint (works on real articles in the 14 Oct live run: 0 undecodable); Google can change it without notice | Decoder fails on fresh links, or items stay as `news.google.com` links | Q15 | Yes |
 | Community Anthropic feed | Maintainer can stop | ERROR in 2 runs in a row | Q9 | No (feed plus search) |
-| VentureBeat, Pandaily, SCMP fallbacks | Depend on the decoder (Google News gave 100, 48 and 100 items in 7 days); Bing `site:` is a thinner backup | Decoder fails | Q8, Q13 | Only if the decoder breaks |
+| VentureBeat, Pandaily, SCMP fallbacks | Depend on the decoder (14 Oct live run: about 31 real VentureBeat articles, 48 Pandaily, 100 SCMP); Bing `site:` is a thinner backup | Decoder fails | Q8, Q13 | Only if the decoder breaks |
 | Jina Reader (backup for Pandaily only) | Free hosted service; 20 requests per minute without a key; terms may change; reported intermittent failures | Errors or empty pages in 2 runs in a row | Q7, Q13 | No (free key, or self-host) |
 | YC JSON endpoints | Unofficial; may change | zod check fails | Q10 | No (Launch HN backup) |
 | Keyword prefilter | Can drop a real AI story | Major story found in the `not_ai` log | Q17 | No |
@@ -36,6 +36,8 @@ Free workarounds that are fine today but depend on something we do not control. 
 ## Q5. AI engine for Stage 3 and web-search tool for Stage 2 [Stage 2, 3]
 - Status: RESOLVED. Claude API (small model for triage, larger for summaries; paid per use, needs an API key and a spend cap). Search = free Google News RSS + Hacker News search.
 
+- Update (15 Oct 2026): no API key exists yet. For the demo the AI steps run as independent Claude Code agents (Q21). The Claude API decision stands for weekly automated runs.
+
 ## Q6. No original source found for a story [Stage 3]
 - Status: RESOLVED. Drop the story, log it in skipped.json.
 
@@ -48,13 +50,15 @@ Free workarounds that are fine today but depend on something we do not control. 
   - Jina Reader (free, no key, tested): reads the Pandaily homepage for about 3 days, so it is now only a backup (Google News covers Pandaily, Q13). Does not help VentureBeat (blocked) or KnowTechie (SSL error).
   - Firecrawl (not tested, needs a free key): free plan is 1,000 credits per month, enough for our use. Success on Cloudflare-blocked sites is unproven and reviews disagree.
   - Next step: get a free Firecrawl key and test it on KnowTechie, VentureBeat and one paywalled article.
+- Update (14 Oct 2026): Firecrawl tested. KnowTechie still fails (TLS error, Cloudflare); Jina fails too. Firecrawl is stronger than Jina on VentureBeat's feed but costs credits (about 7 used of 1,000). No tool unblocks KnowTechie.
 - Status: DEFERRED
 
 ## Q8. VentureBeat (feed returns HTTP 429) [Stage 1]
 - Lack of resource: no direct access to the feed.
 - Decision: use Google News RSS fallback (`news.google.com/rss/search?q=site:venturebeat.com+when:7d`) for now. Needs redirect-link decoding. Marked temporary.
 - Catch: depends on the link decoder (Q15); items have title and date only (Q18).
-- Update: decoder spike passed (Q15); Google News gave 100 VentureBeat items, 99 within 7 days. Items stay title-only (Q18).
+- Update: decoder spike passed (Q15). Corrected 14 Oct 2026: the query returns 100 entries but 69 are empty-title site files; real articles about 31. Items stay title-only (Q18).
+- Update (14 Oct 2026, Firecrawl test): Firecrawl fetches VentureBeat's own feed (7 items, about 3.5 days, no paging), so it cannot replace Google News. Could add snippets for the newest days; not built.
 - Trigger: VentureBeat's own feed works again, or the decoder fails (Q15).
 - Status: TEMPORARY, revisit after Stage 2
 
@@ -65,27 +69,30 @@ Free workarounds that are fine today but depend on something we do not control. 
 ## Q11. Is free Google News search good enough? [Stage 2]
 - Google News gives title, date and link but no snippet, and may miss official blog pages. Stage 2 now merges Bing News RSS (main, has snippet and date), Google News and Hacker News. GDELT tested and dropped (throttled).
 - Check recall during Stage 2 testing (known-news check, 70%). If poor, add a keyed search API via search.ts; Claude web search is the candidate (paid, real URLs, snippets).
+- Update (15 Oct 2026): Stage 2 live run gave 237 items from free providers (Bing answered 28 of 28 queries). The known-news check (70%) is still to be done by hand; paid web search is deferred for the demo (docs/deferred.md).
 - Status: OPEN (checked in Stage 2)
 
 ## Q12. No main YC news source exists [Stage 2]
 - Tested Oct 2026: no dedicated YC news feed. Cat 4 has YC's launches JSON; cat 8 (other YC news) relies on fallbacks: Google News searches, TechCrunch YC tag feed, YC blog, Hacker News search, YC name tagger. Expect cat 8 to be thin.
 - Default decided: keep cats 4 and 8 separate; cat 8 is skipped when empty (Stage 4 must handle a missing section). Startup and funding feeds (Stage 1) plus the YC tagger added as extra sources.
 - Trigger: if the known-news check shows cat 8 still too weak, merge cats 4 and 8 or add Claude web search for this lane (Q11).
-- Status: DEFAULT APPLIES, re-check after Stage 2 testing
+- Update (15 Oct 2026): category 8 is deferred for the demo (SPEC.md Categories; docs/deferred.md). The Stage 3 YC tagger is cut with it. The YC company list is still cached by Stage 2 (1,712 companies) for when it returns. Cat 4 (YC launches) stays.
+- Status: DEFAULT APPLIES, re-check after Stage 2 testing; cat 8 DEFERRED for the demo
 
 ## Q13. Feeds that cannot page: Pandaily (about 2 days) and SCMP (about 3 days) [Stage 1]
 - Lack of resource: feeds hold too few days and ignore `?paged=`.
 - Default: Google News `site:<domain>+when:7d` fallback. Alternatives: history file (needs more-than-weekly runs) or accept the short window.
 - Catch: depends on the link decoder (Q15).
-- Update: the decoder spike (Q15) shows Google News plus the decoder reaches 7 days for both (Pandaily 48 items, SCMP 100). Bing `site:` (Stage 2) and Jina Reader (Q7) are backups if the decoder breaks.
+- Update: Stage 1 built; Google News plus the decoder reaches 7 days for both (14 Oct live run: Pandaily 48 items, SCMP 100). Verified. Bing `site:` (Stage 2) and Jina Reader (Q7) are backups if the decoder breaks.
 - Trigger: decoder fails, then accept the short window and say so in the report.
-- Status: DEFAULT APPLIES, verify at build time
+- Status: DEFAULT APPLIES, verified in the Stage 1 build (14 Oct 2026)
 
 ## Q9. Anthropic has no official RSS [Stage 1, 2]
 - Lack of resource: no official feed.
 - Decision: use the community feed (github.com/Olshansk/rss-feeds) for now. Third-party dependency.
 - Catch: the maintainer can stop; the Stage 2 backup search also runs through Google News (Q15).
 - Update (14 Oct 2026): `raw.githubusercontent.com` was refused from the dev machine; the jsDelivr mirror worked. Stage 1 now tries raw GitHub first and the mirror as `fallback_url`.
+- Update (14 Oct 2026): raw GitHub is intermittent (200 at about 06:30 and 07:30 UTC, refused at 10:54); the jsDelivr `fallback_url` took over with 3 items, as designed. Newest item 8 Oct.
 - Trigger: the feed shows ERROR in 2 runs in a row.
 - Status: TEMPORARY, revisit after Stage 2 to see if search covers it
 
@@ -101,18 +108,21 @@ Free workarounds that are fine today but depend on something we do not control. 
 - If it fails: those 3 feeds fall back to a short window (stated in the report) and Stage 2 needs another search source (Q11, keyed API).
 - Update: Stage 2 search now uses Bing first (the real URL is inside its link), so the decoder only matters for Google News links (VentureBeat, Pandaily, SCMP, Google News backup).
 - Fixed: the "Stage 3 follows the redirect" line was wrong (Stage 3 has no decode step; an undecodable link is already dropped in Stage 1 as `undecodable_link`). Removed. Backup is now the Stage 2 outlet lane (Bing `site:`): scmp.com 12 results, venturebeat.com 3, pandaily.com 0 (Oct 2026, one machine).
-- Spike result (13 Oct 2026, throwaway script, one machine): 95 of 95 Google News links decoded to real URLs (VentureBeat, SCMP, Pandaily), 0 failures, 1.5 s between links. Google News gave VentureBeat 100, SCMP 100, Pandaily 48 items; 99% within 7 days (one 2022 item, which the date filter drops). Go/no-go: GO. Catch: it relies on an undocumented Google endpoint that can change, so keep the Bing `site:` backup and the health guard.
+- Stage 1 build result (14 Oct 2026): `lib/resolveUrl.ts` built, gate passed. Live run: 0 undecodable. Real articles: VentureBeat 31, SCMP 100, Pandaily 48. The 13 Oct spike's "95 of 95" counted VentureBeat site files (`/_next/static/...js`) as successes; Stage 1 now ignores empty-title entries and rejects site-file URLs. A decoder bug with escaped `=` and `&` was fixed. Spike deleted.
+- Spike result (13 Oct 2026, throwaway script, one machine, superseded by the line above): 95 of 95 Google News links decoded to real URLs, 0 failures, 1.5 s between links. Google News gave VentureBeat 100, SCMP 100, Pandaily 48 items; 99% within 7 days (one 2022 item, which the date filter drops). Go/no-go: GO. Catch: it relies on an undocumented Google endpoint that can change, so keep the Bing `site:` backup and the health guard.
 - Status: WATCH
 
 ## Q16. No feed-health guard before Stage 3 [Stage 1]
 - Gap: Stage 1 shows ERROR rows, but nothing stops Stage 3 from running (and spending money) on a half-empty `items.json`.
 - Proposal: print a loud warning when more than 3 feeds ERROR; optionally stop before Stage 3.
 - Suggested by Claude, user delegated: hard stop before any AI call, with `--force` to override (never in scheduled runs). Warn-only was rejected because nobody reads the console in a weekly run, so thin input would give a confident newsletter missing categories. Stopping costs little since downloads are cached. Conditions in SPEC.md Whole pipeline; the minimum item count is set after the first real run.
+- Update: Stage 1 side done (writes `data/health_stage1.json`). The Stage 3 stop and the Stage 2 health shape are not built yet.
 - Status: DEFAULT APPLIES (change if you disagree)
 
 ## Q17. Keyword prefilter can drop real AI stories [Stage 1]
 - Gap: on Google, Nvidia, Microsoft and Meta feeds, an AI story without a keyword is dropped as `not_ai` and Stage 3 never sees it.
 - Plan: keywords live in config; the report prints the `not_ai` count; you skim the skip log during testing.
+- Update (14 Oct 2026): trigger fired once (Microsoft Maia 300 chip dropped). Decision: prefilter OFF for Google AI and Microsoft (AI-topic feeds), ON for Nvidia, Meta and SCMP. Skim of dropped SCMP titles: no AI model or product story lost; two chip stories (Huawei Kirin, CXMT) dropped as not AI; one false keep. User accepted the gap.
 - Trigger: a major story is found in the `not_ai` log, then widen the keyword list.
 - Status: WATCH
 
@@ -133,5 +143,14 @@ Free workarounds that are fine today but depend on something we do not control. 
 - Workaround: Bing News RSS (main), Google News RSS and Hacker News merged in `search.ts`, so one failing provider does not stop Stage 2. Tested Oct 2026 on a few queries from one machine: Bing links decode 100%, with `qft=interval="7"` all results fall in 7 days, snippet and date present.
 - Update: Bing `site:` test (13 Oct 2026, one machine): scmp.com 12, technode.com 7, venturebeat.com 3, pandaily.com 0.
 - Catch: Bing and Google can block, throttle or change format without notice; only a small test so far. Re-test about 25 queries from the machine that runs weekly.
+- Decided 14 Oct 2026: the weekly host is the dev machine for now. Re-test about 25 queries from the real weekly host before Stage 5 relies on it.
+- Update (15 Oct 2026): first full live run (28 queries) from the dev machine: Bing answered all 28 in about 2.5 min with 1 s between queries; 3 queries needed the Google backup. One machine, one run: keep WATCH.
 - Trigger: known-news check below 70%, or a provider returns errors in 2 runs in a row, then add a keyed API (Q11).
 - Status: WATCH
+
+## Q21. Stage 3 AI engine for the demo [Stage 3]
+- Gap: the planned engine is the Claude API (SPEC.md AI engine, Q5), which needs an API key and a spend cap approved by your senior. No key exists (`.env` has only the Firecrawl key), and waiting for it would miss the demo.
+- Workaround (decided 15 Oct 2026): the two AI steps (triage, summaries) run as independent Claude Code agents with fresh context, each given only the instruction file in `docs/prompts/` and a slice of the data. Code and AI meet through files in `data/stage3/`, so the API can fill the same files later with no rewrite.
+- Catch: not a one-command run, not repeatable by a scheduler, and no spend cap or token count to show. Say so in the demo.
+- Trigger: key and cap approved, then build `src/lib/llm.ts` and use the same prompt files as system prompts.
+- Status: TEMPORARY (demo workaround), needs senior approval for the API
