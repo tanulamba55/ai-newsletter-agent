@@ -21,7 +21,7 @@ export type Item = z.infer<typeof ItemSchema>;
 // A dropped item with the reason (skipped_stage1.json, skipped_stage2.json).
 // Reasons used in Stages 1 and 2 are listed here; the full list lives in docs/SPEC.md.
 export const SkippedSchema = z.object({
-  reason: z.enum(['undated', 'not_ai', 'undecodable_link', 'aggregator']),
+  reason: z.enum(['undated', 'not_ai', 'undecodable_link', 'aggregator', 'too_old', 'duplicate', 'minor', 'over_category_cap', 'no_original_source', 'fetch_failed', 'quote_not_found', 'over_item_cap']),
   title: z.string(),
   url: z.string(),
   feed: z.string(),
@@ -70,6 +70,37 @@ export const FeedConfigSchema = z.object({
   prefilter: z.boolean().default(false), // keep only items that look AI-related
 });
 export type FeedConfig = z.infer<typeof FeedConfigSchema>;
+
+// --- Stage 3 ---
+
+// config/stage3.json
+export const Stage3ConfigSchema = z.object({
+  min_items: z.number(), // health guard: stop if fewer items than this arrive from Stages 1 and 2
+  max_feeds_error: z.number(), // health guard: stop if more Stage 1 feeds than this are in ERROR
+  item_cap: z.number(), // most candidates sent to triage; the rest are logged over_item_cap
+  slices: z.number(), // triage is split into this many independent slices
+  snippet_chars: z.number(), // snippet length shown to triage
+  title_duplicate_similarity: z.number(), // titles at least this similar (0-1) are the same story
+  cluster_similarity: z.number(), // titles at least this similar are placed next to each other
+});
+export type Stage3Config = z.infer<typeof Stage3ConfigSchema>;
+
+// One candidate for triage (data/stage3/candidates.json): an Item, shortened, plus what the merge learned.
+export const CandidateSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  outlet: z.string(),
+  outlet_type: z.enum(['media', 'official']),
+  published_at: z.string(),
+  snippet: z.string(),
+  lane: z.string().optional(),
+  region: z.literal('china').optional(),
+  category_hint: z.string().optional(), // advice from Stage 2, not binding
+  yc_match: z.object({ company: z.string(), batch: z.string() }).optional(),
+  cluster: z.number(), // items with the same cluster number have similar titles (probably the same story)
+  covered_by: z.array(z.object({ outlet: z.string(), url: z.string(), published_at: z.string() })).default([]), // other copies of the same story (other outlets), merged into this item
+});
+export type Candidate = z.infer<typeof CandidateSchema>;
 
 // --- Stage 2 ---
 

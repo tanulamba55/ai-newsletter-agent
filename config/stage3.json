@@ -1,0 +1,9 @@
+{
+  "min_items": 150,
+  "max_feeds_error": 3,
+  "item_cap": 500,
+  "slices": 4,
+  "snippet_chars": 250,
+  "title_duplicate_similarity": 0.8,
+  "cluster_similarity": 0.35
+}
