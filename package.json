@@ -16,7 +16,8 @@
     "stage3:summarize": "node src/stage3-summarize.ts",
     "stage3:finish": "node src/stage3-finish.ts",
     "stage4": "node src/stage4-pdf.ts",
-    "all": "npm run stage1 && npm run stage2 && npm run stage3 && npm run stage4",
+    "docs:check": "node tests/docs-check.ts",
+    "all":"npm run stage1 && npm run stage2 && npm run stage3 && npm run stage4",
     "test": "node --test \"tests/*.test.ts\""
   },
   "dependencies": {
