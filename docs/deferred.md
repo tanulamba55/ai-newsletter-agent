@@ -5,7 +5,7 @@ Decided 15 Oct 2026 to have Stages 1-3 (and the Stage 4 PDF if possible) ready f
 ## Needs a purchase or an approval
 | Cut | Why | Ideal way (comes back when) |
 |---|---|---|
-| Claude API for Stage 3 triage and summaries (`src/lib/llm.ts`, spend cap, token budget) | No API key exists; the key and a spend cap need the senior's approval | Key and cap approved: build `llm.ts` and use `docs/prompts/*.md` as system prompts (Q21). Demo workaround: independent Claude Code agents fill the same files |
+| Paid Claude API as the Stage 3 engine (spend cap, token budget) | No key exists and a paid plan needs the senior's approval. No longer blocking: `src/lib/llm.ts` is provider-agnostic and works with free tiers (SPEC.md AI engine, Q21) | A paid provider is wanted for quality or limits: add it to `config/llm.json` with a spend cap in the provider's console |
 | Paid Claude web search (benchmark week, backup search lane) | Costs money and needs approval | A Q11 or Q20 trigger fires, or the first real test week (SPEC.md Whole pipeline) |
 | Firecrawl / real-browser fetch for KnowTechie and blocked pages | Tested: does not unblock KnowTechie (Q7); VentureBeat's own feed only 3.5 days | Revisit if a browser tool works, or for blocked article pages in Stage 3 |
 | Terms-of-use decision for Bing and Google News RSS | A business call, only needed before publishing publicly | Before Stage 5 (Stage 2 Risk 6) |
@@ -15,7 +15,9 @@ Decided 15 Oct 2026 to have Stages 1-3 (and the Stage 4 PDF if possible) ready f
 |---|---|---|
 | Category 8 (YC-backed startups, non-launch news) and the Stage 3 YC tagger | Weakest category: no main source exists (Q12), the tagger needs name matching and tuning | Demo has 7 categories; Stage 2 still caches the YC company list. Bring it back when the tagger is built (step 2c in the Stage 3 spec) |
 | Golden set (30 labelled items, 20-30 min of your time) | Needs your labelling time | Before the first real weekly run; re-run after prompt or model changes |
-| Number check, AI retries, token count printed per run | Only relevant with the API; the demo AI steps are checked by code (source link, quote) and by reading | With `llm.ts` |
+| Number check and a hard token budget | Not built. (The one AI retry and tokens printed per call ARE built in `llm.ts`.) Source link and quote are checked by code | Before the first scheduled weekly run |
+| Fixing the thin result (many stories lost at the original-source rule; weak review choices on a small model) | Accepted for the demo; the strict rule is explained in the demo | Options: relax the rule for trusted outlets (needs a SPEC.md decision), improve the summary and review prompts, fetch blocked pages another way (Q7) |
+| Page numbers in the PDF | Chrome's `--no-pdf-header-footer` removes them; needs extra print CSS | After the demo, if wanted (Stage 4 spec, Known gap) |
 | Readability, cheerio and jsdom for article text | No new dependencies today; light own HTML-to-text and link extraction | If article text quality is poor |
 | Stage 5: publish and schedule weekly | Decided earlier that the pipeline stops at the PDF and you approve before publishing | After Stage 4 is accepted: choose where to publish and how to schedule |
 | Fancy PDF design (logo, custom fonts, cover art) | Clean print layout is enough for the demo | After the demo |

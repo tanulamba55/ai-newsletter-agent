@@ -1,6 +1,6 @@
 # Stage 4: Stories to PDF
 
-Status: approved (plan, demo scope 15 Oct 2026) - not built
+Status: tested (demo scope, 16 Oct 2026). 4 automated tests pass; you opened the PDF (made from 12 stories), clicked source links and checked the layout. Page numbers are not built (deferred.md)
 Depends on (SPEC.md): Story contract, PDF section
 Known gaps (open-questions.md): none yet
 
@@ -20,8 +20,11 @@ In: `data/stories.json` (checked with zod). Out: `data/newsletter.html` and `dat
 ## How
 - `src/lib/render.ts`: stories in, HTML text out. No network, no dependencies.
 - `src/stage4-pdf.ts`: reads and validates `data/stories.json`, writes `data/newsletter.html`, runs `google-chrome --headless --no-pdf-header-footer --print-to-pdf=<file>` as a child process (30 s timeout, clear error if Chrome is missing), writes through a temp name then renames.
-- Run: `npm run pdf`.
+- Run: `npm run stage4`. Section titles are the category names in SPEC.md. The cover's 7-day range is the issue date minus 7 days (stories.json holds no run date).
 - Chrome is already installed on the dev machine (`/usr/bin/google-chrome`); no new package.
+- Decided 15 Oct 2026: no "YC launch" badge (the category 4 section title already says it). The story shape has no `yc_launch` field.
+- **Known gap: no page numbers.** `--no-pdf-header-footer` (required above) also removes Chrome's page numbers. Adding them needs extra print CSS. Not done.
+- Tests: `tests/stage4-render.test.ts` (escaping, empty category left out and order, links, cover). The zod refusal of a bad `stories.json` is in `stage4-pdf.ts` and is covered by the story-shape tests in `tests/stage3-finish.test.ts`, not by a Stage 4 test.
 
 ## Success check
 A PDF I would be happy to read: every story shows with a working source link, no empty section, date on the cover.

@@ -2,7 +2,7 @@
 
 A weekly newsletter on AI, built automatically. It finds the most important AI stories of the last 7 days, writes a short summary of each, and puts them into one designed PDF.
 
-**Status:** Stage 1 built (14 Oct 2026). Stage 2 built and run live (15 Oct), awaiting manual acceptance. Stages 3 and 4 are being built for the demo on 16 Oct 2026 with a reduced scope (7 categories, AI step run by Claude Code agents instead of the paid API). Stage 5 deferred. What was cut and why: [docs/deferred.md](docs/deferred.md).
+**Status (16 Oct 2026):** Stages 1 to 4 are built and run for the 16 Oct demo, with a reduced scope (8 active categories). Stage 3's AI steps run either as live Claude Code agents (demo mode) or through any AI provider via `src/lib/llm.ts` and `config/llm.json` (Gemini free tier tested once, see [open-questions.md](docs/open-questions.md) Q21). Stage 5 deferred. What was cut and why: [docs/deferred.md](docs/deferred.md).
 
 ## Objective
 
@@ -48,8 +48,8 @@ Each story belongs to exactly one category. The rules for choosing it are in [SP
 |---|---|---|---|
 | 1. Collect | Read the last 7 days from media and official-company RSS feeds | items.json | Built |
 | 2. Search | Fill gaps the feeds miss: YC news, Chinese AI companies, official announcements without RSS, regulation, video/design | items_extra.json | Built (awaiting acceptance) |
-| 3. Process | Remove duplicates, pick what matters, sort into categories, find the original source, write summaries | stories.json | In progress (demo scope) |
-| 4. PDF | Turn stories.json into a designed PDF | PDF | Planned (demo scope) |
+| 3. Process | Remove duplicates, pick what matters, sort into categories, find the original source, write summaries | stories.json | Tested (demo scope) |
+| 4. PDF | Turn stories.json into a designed PDF | PDF | Tested (demo scope) |
 | 5. Publish | Send or post the PDF, run weekly | Published PDF | Deferred |
 
 The JSON files are the contract between stages: each stage reads the previous one's file, so any stage can be rebuilt or fixed without touching the others.
@@ -58,7 +58,7 @@ The JSON files are the contract between stages: each stage reads the previous on
 
 - Build **one stage at a time** and wait for approval before the next.
 - Code is TypeScript (Node 23.6), simple, and commented in plain language.
-- Free tools wherever possible. Required: the Claude API (Stage 3). Possible paid backups (web search, browser fetch) and the terms-of-use decision are listed in [SPEC.md](docs/SPEC.md) under Resources and approvals. Free workarounds that may break later are in the register at the top of [open-questions.md](docs/open-questions.md).
+- Free tools wherever possible. The AI steps of Stage 3 work with any provider, free (for example Gemini) or paid; one key in `.env` is needed. Possible paid backups (web search, browser fetch) and the terms-of-use decision are listed in [SPEC.md](docs/SPEC.md) under Resources and approvals. Free workarounds that may break later are in the register at the top of [open-questions.md](docs/open-questions.md).
 - Open decisions live in [open-questions.md](docs/open-questions.md).
 
 ## Where to find things
@@ -77,11 +77,11 @@ The JSON files are the contract between stages: each stage reads the previous on
 ## Folder layout
 
 ```
-config/   feeds.json, keywords.json (built); searches.json, categories.json (planned)
-src/      stage1-collect.ts and lib/ (built); stage2-search.ts, stage3-process.ts (planned)
-data/     generated, git-ignored: items.json, skipped_stage1.json, health_stage1.json, cache/, health/
-tests/    stage1.test.ts, fixtures/ (saved real feeds), health.ts (outside-service check)
-docs/     SPEC.md, open-questions.md, specs/, sessions/   (documents, already in place)
+config/   feeds.json, keywords.json, searches.json, yc.json, aggregators.json (stages 1-2); stage3.json, source_rules.json, llm.json (stage 3)
+src/      stage1-collect.ts, stage2-search.ts, stage3.ts (runner) and stage3-<step>.ts, stage4-pdf.ts; lib/ holds the shared code
+data/     generated, git-ignored: items*.json, skipped*.json, health*.json, stories.json, newsletter-<date>.pdf, stage3/ (working files), cache/, health/, demo-2026-10-15/ (saved demo copy)
+tests/    *.test.ts (all offline, no AI), fixtures/ (saved real feeds), health.ts (outside-service check)
+docs/     SPEC.md, open-questions.md, deferred.md, specs/, prompts/ (instructions for the AI steps), sessions/
 scripts/  spikes/ for throwaway experiments (now: firecrawl-spike.ts)
 ```
 
@@ -95,11 +95,29 @@ Details and fallbacks are in the stage specs and [open-questions.md](docs/open-q
 
 ## How to run
 
-```
-npm install
-npm run collect            # Stage 1, live (first run about 10 min, reruns seconds)
-node src/stage1-collect.ts --offline   # replay today's cached downloads
-npm test                   # 29 offline tests
-npm run health             # quick check of outside services (health:full for more)
-```
-Stage 1 writes `data/items.json`, `data/skipped_stage1.json`, `data/health_stage1.json` and prints a table per feed.
+One-time setup: `npm install`. For the AI steps, put your key in `.env` (for example `GEMINI_API_KEY=...`) and pick provider and model in `config/llm.json`.
+
+| Command | What it does |
+|---|---|
+| `npm run stage1` | Stage 1: collect RSS items (first run about 10 min, reruns seconds). Add `-- --offline` to replay cached downloads |
+| `npm run stage2` | Stage 2: search to fill gaps (about 2.5 min). `-- --offline` replays |
+| `npm run stage3` | Stage 3: all steps in order, stops at the first failure |
+| `npm run stage4` | Stage 4: stories.json to `data/newsletter-<date>.pdf` |
+| `npm run all` | Stages 1 to 4 |
+| `npm run stage3 -- --from <step>` | Stage 3 from a later step (after a failure) |
+| `npm run stage3:<step>` | Run one Stage 3 step |
+| `npm test` | all offline tests (no AI, no network) |
+| `npm run health` | quick check of outside services (`health:full` for more) |
+
+Stage 3 steps, in order: `prepare`, `triage` (AI), `rank`, `review` (AI), `fetch`, `summarize` (AI), `finish`. Flags for the AI steps: `--use-saved` (use answer files already in `data/stage3/`), `--only <n>` (one slice or part), and for `summarize` also `--inputs-only` (write the input files, no AI call). Which files each step reads and writes: [docs/specs/stage3-process.md](docs/specs/stage3-process.md).
+
+**When a model is busy.** Every checked AI answer is saved in `data/cache/ai/`, so running the same command again never repeats a question that was already answered. A step can list backup models in `config/llm.json` (`fallbacks`); a model that stays busy is skipped for the rest of the run. If every model is busy the step stops with one clear message; run the same command again later. `data/stage3/ai-log.json` records which model answered what.
+
+### Demo mode: live run with Claude Code agents (no API key, nothing pre-saved)
+Claude Code agents do the three AI steps, live, in this session. The code steps and the checks are the same commands:
+1. `npm run stage1`, `npm run stage2`, then `npm run stage3:prepare`
+2. Agents triage the 4 slices; each writes `data/stage3/triage_<n>.json` (instructions: `docs/prompts/stage3-triage.md`). Then `npm run stage3:rank` (checks the answers)
+3. One agent reviews `data/stage3/shortlist.json` and writes `data/stage3/review.json` (`docs/prompts/stage3-review.md`). Then `npm run stage3:review -- --use-saved` (checks and applies it)
+4. `npm run stage3:fetch`, then `npm run stage3:summarize -- --inputs-only`
+5. Agents write `data/stage3/summaries_<n>.json` from `summary_input_<n>.json` (`docs/prompts/stage3-summary.md`)
+6. `npm run stage3:finish`, then `npm run stage4`

@@ -1,16 +1,32 @@
 # Stage 3: Process items into stories
 
-Status: approved (plan); demo-scope build in progress (15 Oct 2026)
+Status: tested (demo scope, 16 Oct 2026). 142 offline tests pass. Real runs: Claude Code agents (15 Oct morning, and a live rehearsal 15 Oct evening, 12 stories) and Gemini through `llm.ts` (15 Oct, 12 stories). You reviewed stories.json, the PDF, the links and the skip log. NOT yet tested: an unattended weekly run, a complete Gemini run on a stronger model (the finished Gemini run used `gemini-flash-lite-latest` for all three steps; the `gemini-3.5-flash` attempt stopped on overload errors), and the new saved-answer, backup-model and skip-busy-model behaviour against the real API (tested offline only)
 Depends on (SPEC.md): Categories + precedence, Selection rules, Importance rubric, Story date, AI engine, Story + Skipped contracts
 Known gaps (open-questions.md): Q14, Q15, Q16, Q18, Q19, Q21
 
 ## Demo scope (15 Oct 2026)
 The full design below stays the target. For the demo it is cut down; every cut is listed in docs/deferred.md.
-- **AI steps run as independent Claude Code agents, not the API** (no key yet; Q21). Code and AI meet only through files, so the same files are filled by an API call later without rewriting anything: `data/stage3/candidates.json` (code writes) -> `triage_<n>.json` (AI) -> `articles.json` (code fetches survivors) -> `summaries_<n>.json` (AI) -> `data/stories.json` (code checks and writes). Agent instructions: `docs/prompts/stage3-triage.md` and `docs/prompts/stage3-summary.md`.
-- Three code programs instead of one: `src/stage3-prepare.ts` (steps 0-2b), `src/stage3-rank.ts` (steps 3 validation, 4, 5), `src/stage3-finish.ts` (steps 7-8). `src/lib/llm.ts` is not built.
-- Categories in the demo: 1-7 and 9 (new: AI infrastructure and research, SPEC.md). Triage plan: 4 independent slice agents (`docs/prompts/stage3-triage.md`), then a review pass by one fresh agent over the shortlist plus a near-miss band (items scoring just under the cutoff) to fix score drift between slices and rescue wrongly dropped items; optional consistency check (a second agent on 30 items of slice 1) to report agreement.
-- Cut: category 8 and the YC tagger (step 2c; cat 4 launches still arrive tagged from Stage 2), number check, AI retries, token budget, golden set, Readability/cheerio/jsdom (light own HTML-to-text and link extraction), the optional Q19 final dedupe is built (code only) because triage slices cannot see each other.
-- Kept: health guard, date filter, URL and title dedupe, item cap (about 500), ranking, top 4 per category then trim to 2-3, original-source rule with aggregator blocklist and trusted outlets, supporting-quote check, skip log merge.
+- **AI through `src/lib/llm.ts`, any provider** (SPEC.md AI engine; settings in `config/llm.json`, keys in `.env`; busy-model handling is described in SPEC.md). The first real run (15 Oct) used independent Claude Code agents because no key existed (Q21). Code and AI meet only through files in `data/stage3/`.
+- **Two ways to run the AI steps** (full command lists in README, "How to run"): (A) Gemini or any provider from the terminal, `npm run all` or `npm run stage3`; (B) live Claude Code agents ("demo mode"): agents write `triage_<n>.json`, `review.json` and `summaries_<n>.json`, and the code steps check them (`--use-saved`; `summarize --inputs-only` only prepares the agents' input).
+- **Run commands:** `npm run stage3` runs all steps; `npm run stage3 -- --from <step>` resumes; `npm run stage3:<step>` runs one. AI steps take `--use-saved` (use answer files already there), `--only <n>` (one slice or part); `summarize` also takes `--inputs-only`.
+- **Steps and files** (one program each, `src/stage3-<step>.ts`; the runner is `src/stage3.ts`):
+
+| Step | Program | Spec steps | Reads | Writes | By |
+|---|---|---|---|---|---|
+| prepare | `stage3-prepare.ts` | 0, 1, 2, 2b | `items.json`, `items_extra.json`, health files, `config/stage3.json` | `candidates.json`, `candidates_1..4.json`, `skipped_prepare.json` | code |
+| triage | `stage3-triage.ts` | 3 | `docs/prompts/stage3-triage.md`, `candidates_<n>.json` | `triage_<n>.json` | AI, one call per slice |
+| rank | `stage3-rank.ts` | 3 check, 4 | `triage_<n>.json` | `shortlist.json` (top 4 per category plus near-miss band; copies of one story collapsed), `dropped_triage.json` | code |
+| review | `stage3-review.ts` | pass 2 | `docs/prompts/stage3-review.md`, `shortlist.json` | `review.json`, `selected.json` (max 3 per category), `dropped_review.json` | AI (one call), then code applies it |
+| fetch | `stage3-fetch.ts` | 5 | `selected.json`, item files | `articles.json` | code |
+| summarize | `stage3-summarize.ts` | 6 | `docs/prompts/stage3-summary.md`, `selected.json`, `articles.json` | `summary_input_<n>.json`, `summaries_<n>.json` | AI, 4 calls |
+| finish | `stage3-finish.ts` | 7, 8 | `summaries_<n>.json`, `articles.json`, `config/source_rules.json`, drop lists | `data/stories.json`, `data/skipped.json` | code |
+
+  `prepare` deletes every older Stage 3 file first, so a saved answer is only ever reused within the same run.
+- Categories in the demo: 1-7 and 9 (new: AI infrastructure and research, SPEC.md). Triage is 4 independent slices; a review pass over the shortlist plus a near-miss band (items scoring just under the cutoff) fixes score drift between slices, merges same-story items from different slices and rescues wrongly dropped items. The optional consistency check (a second run on 30 items of slice 1) is not built.
+- Cut: category 8 and the YC tagger (step 2c; cat 4 launches still arrive tagged from Stage 2), number check, token budget, golden set, Readability/cheerio/jsdom (light own HTML-to-text and link extraction). The one AI retry on a bad answer IS built (in `llm.ts`). The Q19 shortlist dedupe is built, as the group collapse in `rank` plus the review pass.
+- Kept: health guard, date filter, URL and title dedupe, item cap (about 500), ranking, top 4 per category then trim to 2-3, original-source rule with aggregator blocklist and trusted outlets (`config/source_rules.json`), supporting-quote check, skip log merge.
+- Known weakness (accepted for the demo, 16 Oct): the original-source rule loses many good stories. Morning run 15 of 23 selected; Gemini run 12 of 23; live rehearsal 12 of 23 (about 9 lost to "no original source link found", 2 skipped as too thin), with categories 2 and 7 empty. Causes: pages that could not be fetched (Pandaily), and news articles without a link to the original. The rule is strict on purpose; losses are listed in `skipped.json`. Options not built: relax the rule for trusted outlets (needs a SPEC.md change), a better summary prompt, fetching blocked pages another way.
+- Review-prompt quality (Gemini run): the review kept a biotech financing (not AI), a low-quality outlet post and a minor Facebook feature. Prompt fix not done.
 
 ## Purpose
 Turn the raw items (about 400-500 after Stages 1 and 2) into at most 24 clean stories (2-3 per category), each with an original source.
@@ -52,13 +68,13 @@ Code also checks that every number in the summary (amounts, percentages, dates, 
 If only a snippet was available (step 5 fallback), the checks run against the snippet.
 
 ## Models
-Smaller Claude model for triage (call 1), larger for summaries (call 2). Calls go only through `src/lib/llm.ts`, which also enforces a hard token budget: past the limit the run stops cleanly and writes what it has. The old estimate (about 200k input tokens per run) assumed about 200 items; re-estimate at build with the item cap (verify pricing).
+Any model, set per step in `config/llm.json` (SPEC.md AI engine). Calls go only through `src/lib/llm.ts`, which waits and retries on rate limits (HTTP 429), retries a bad answer once, and prints tokens used per call. The hard token budget is deferred (docs/deferred.md). A full run is about 9 calls (4 triage, 1 review, 4 summaries); free tiers allow this, but their limits change often (LESSONS.md), so check the provider's page before relying on them.
 
 ## Cache
 Fetched pages and AI answers go in `data/cache/`, so reruns cost nothing.
 
 ## Files
-`src/stage3-process.ts`, `src/lib/dedupe.ts`, `src/lib/yc.ts` (shared with Stage 2), `src/lib/llm.ts`, `src/lib/fetchPage.ts`, `src/lib/dates.ts`, `src/lib/schemas.ts`, `src/lib/files.ts`, `config/categories.json`, `config/source_rules.json`.
+Programs: `src/stage3.ts` (runner) and `src/stage3-<step>.ts` (see the table in Demo scope). Libraries in `src/lib/`: `prepare.ts`, `dedupe.ts`, `triage.ts`, `rank.ts`, `review.ts`, `fetchPage.ts`, `finish.ts`, `llm.ts`, `llmSetup.ts`, `schemas.ts`, `files.ts`, `dates.ts`, `rss.ts`, `urls.ts`. Config: `config/stage3.json`, `config/llm.json`, `config/source_rules.json`. Prompts: `docs/prompts/stage3-triage.md`, `stage3-review.md`, `stage3-summary.md`. Tests: `tests/stage3-*.test.ts`, `tests/llm.test.ts`.
 
 ## Decisions made
 - Over-pick 4 per category, trim to 2-3.
@@ -79,13 +95,13 @@ Fetched pages and AI answers go in `data/cache/`, so reruns cost nothing.
 Stories grouped by category, 2-3 max each, each with an original-source link; no duplicates; nothing older than 7 days.
 
 ## Tools
-Free: Node 23.6 built-ins, `zod`, `cheerio` (read HTML and list links), `@mozilla/readability` + `jsdom` (clean article text). **Paid per use:** `@anthropic-ai/sdk` (Claude API). Model IDs, current price and spend cap are checked at build time, not guessed. No agent framework.
+Free: Node 23.6 built-ins (including `fetch` and `process.loadEnvFile`), `zod`. HTML-to-text and link extraction are our own small code (no cheerio, readability or jsdom). No AI SDK and no agent framework: `llm.ts` uses plain `fetch`. A paid provider is optional; model names, prices and limits are checked on the provider's own page at the time, not guessed.
 
 ## Risks (top first)
 1. **AI invents facts.** Summaries only from fetched text, plus the supporting-quote and number checks.
 2. **AI invents the original-source link.** Code accepts only a link that actually appears on the fetched page, is reachable, and is not an aggregator domain.
 3. **Prompt injection from article text, titles and snippets.** Passed as data only, the model has no tools, output must pass zod.
-4. **Cost overrun.** Item cap, batching, cache, token count printed every run, hard token budget in code, spend cap in the Anthropic console.
+4. **Cost or quota overrun.** Item cap, slices, tokens printed per call, rate-limit waits. On a paid provider also set a spend cap in the provider's console; a hard token budget in code is deferred.
 5. **Wrong category, or an important story dropped.** Golden set test plus a skip-log audit.
 6. **Bad AI JSON or API errors.** zod check, retry with a pause, log and skip that batch, never crash the run.
 7. **Article blocked or paywalled.** Other outlet in the group, then snippet; logged `fetch_failed` only if all fail. A snippet-only summary is thinner, and a media item without a fetched page can only pass via the trusted-outlet scoop rule (see Original-source rule), so paywalled media stories are often lost.

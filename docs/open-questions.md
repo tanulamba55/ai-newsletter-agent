@@ -36,7 +36,7 @@ Free workarounds that are fine today but depend on something we do not control. 
 ## Q5. AI engine for Stage 3 and web-search tool for Stage 2 [Stage 2, 3]
 - Status: RESOLVED. Claude API (small model for triage, larger for summaries; paid per use, needs an API key and a spend cap). Search = free Google News RSS + Hacker News search.
 
-- Update (15 Oct 2026): no API key exists yet. For the demo the AI steps run as independent Claude Code agents (Q21). The Claude API decision stands for weekly automated runs.
+- Update (15 Oct 2026): superseded by Q21. The engine is now provider-agnostic (SPEC.md AI engine): any provider, free or paid. The Claude API is one possible provider, not a requirement.
 
 ## Q6. No original source found for a story [Stage 3]
 - Status: RESOLVED. Drop the story, log it in skipped.json.
@@ -148,9 +148,10 @@ Free workarounds that are fine today but depend on something we do not control. 
 - Trigger: known-news check below 70%, or a provider returns errors in 2 runs in a row, then add a keyed API (Q11).
 - Status: WATCH
 
-## Q21. Stage 3 AI engine for the demo [Stage 3]
-- Gap: the planned engine is the Claude API (SPEC.md AI engine, Q5), which needs an API key and a spend cap approved by your senior. No key exists (`.env` has only the Firecrawl key), and waiting for it would miss the demo.
-- Workaround (decided 15 Oct 2026): the two AI steps (triage, summaries) run as independent Claude Code agents with fresh context, each given only the instruction file in `docs/prompts/` and a slice of the data. Code and AI meet through files in `data/stage3/`, so the API can fill the same files later with no rewrite.
-- Catch: not a one-command run, not repeatable by a scheduler, and no spend cap or token count to show. Say so in the demo.
-- Trigger: key and cap approved, then build `src/lib/llm.ts` and use the same prompt files as system prompts.
-- Status: TEMPORARY (demo workaround), needs senior approval for the API
+## Q21. Stage 3 AI engine [Stage 3]
+- History: the first plan was the Claude API (Q5), which needs a key and a spend cap approved by your senior. No key existed on 15 Oct 2026, so the first real run used independent Claude Code agents.
+- Decision (15 Oct 2026): the engine is provider-agnostic. `src/lib/llm.ts` and `config/llm.json` let any model (free tier or paid, hosted or local, or an agent command) fill the same files in `data/stage3/`. Built and tested offline with a fake AI. Default config points at Gemini (free tier), model name `gemini-flash-latest` (a placeholder, check it in Google AI Studio).
+- Live results (15 Oct 2026, Gemini free tier): triage on `gemini-flash-lite-latest` agreed 87% with the Claude agents on keep/drop and 89% on category (slice 1). A full run on the lite model gave 12 stories (Claude agents: 15). `gemini-flash-latest` and `gemini-3.5-flash` returned HTTP 503 "high demand" repeatedly; `gemini-2.5-flash` is closed to new keys; `gemini-3.5-flash` is slow. Busy-model handling (saved answers, backup list, skip-busy, clean stop) was added after this and is tested offline only (LESSONS.md).
+- Still open: (1) the new busy-model handling has not run against the real API; (2) free-tier limits are unverified and change often, and free prompts may be used by the provider (our input is public news text); (3) the demo data comes from Claude Code agents, not from the model in `config/llm.json`, so say so in the demo; (4) a weaker model writes weaker review choices (kept a non-AI funding story and a low-quality outlet); the quote and source checks catch some errors, not all.
+- Trigger: before the first scheduled weekly run, do one complete run through `llm.ts` on the chosen model and compare its stories with `data/demo-2026-10-15/stories.json`; if quality is clearly worse, pick another provider or a stronger model in `config/llm.json`.
+- Status: WATCH (built and run live once on Gemini; weekly use not yet tested)

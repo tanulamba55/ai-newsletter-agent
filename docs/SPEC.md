@@ -86,21 +86,32 @@ unsourced rumours; recaps of old news.
 news broke). The 7-day check uses this date.
 
 ## AI engine
-Demo scope (15 Oct 2026): no API key yet, so the AI steps of Stage 3 run as independent Claude Code
-agents that read and write the Stage 3 files; the instructions are in `docs/prompts/`. This is a
-workaround. The intended design is below and returns when a key and spend cap are approved
-(docs/deferred.md, Q21).
+Provider-agnostic. Every AI step of Stage 3 (triage, review, summaries) goes through one file,
+`src/lib/llm.ts`. Which AI is used is set in `config/llm.json`: a provider and a model per step
+(a small, cheap model for triage, a stronger one for summaries if wanted). Keys live in `.env` and
+are never printed or stored in config. Two kinds of provider:
+- `openai`: any chat endpoint in the OpenAI format (Gemini, Groq, OpenRouter, local Ollama, OpenAI and others). Free tiers and paid plans work the same way.
+- `command`: a program that reads the prompt on stdin and prints the answer (any agent command line).
 
-Claude API, used only through one file (`src/lib/llm.ts`). Smaller model
-for triage, larger for summaries. Paid per use; needs an API key in .env
-and a spend cap.
+The instruction text of each step is a file in `docs/prompts/`. Every AI answer is a JSON array that
+code checks with zod (right shape, one answer per input item); a bad answer is retried once with the
+reason, then the run stops. Saved answer files in `data/stage3/` can be reused instead of a new call
+(`--use-saved`), so an answer from any other agent or model can be dropped in (this is how the live
+Claude Code agent demo works: agents write the files, code checks them). A paid Claude API is one
+possible provider, not a requirement (docs/deferred.md, Q21).
+
+Busy or failing models (free tiers are overloaded at times):
+- Every checked answer is saved in `data/cache/ai/`, keyed by the question. Asking the same question again returns the file, so a rerun never repeats a call that worked.
+- A step may list backup models (`fallbacks` in `config/llm.json`, any provider). A model that stays unavailable (HTTP 429, 5xx, timeout) after 2 quick retries is skipped for the rest of the run.
+- If every model is unavailable the step stops with one clear message; running the same command again continues with what is missing.
+- `data/stage3/ai-log.json` records which model answered what (or that a saved answer was reused).
 
 ## Resources and approvals
 What is free is not enough on its own. These need a decision or a purchase.
 
 | Item | Status | Why | Details |
 |---|---|---|---|
-| Claude API key and spend cap | Required for weekly automated runs; deferred for the demo (workaround: Claude Code agents) | Stage 3 triage and summaries | AI engine, above |
+| AI provider key (free tier or paid) | Required for weekly automated runs; a free-tier key (for example Gemini) is enough to start. A paid plan needs a spend cap | Stage 3 triage, review and summaries | AI engine, above |
 | Claude web search (paid) | Conditional; deferred (not used in the demo) | Recall benchmark in the test week; backup search if the Q11 or Q20 triggers fire | Whole pipeline (benchmark), Q11, Q20. Price checked at build time |
 | Terms-of-use decision | Required before Stage 5 | Bing and Google News RSS feed a publicly published product. Your senior decides | Stage 2 Risk 6 |
 | Real-browser fetch tool (for example Firecrawl) | Optional, test first | Helps blocked or paywalled pages (KnowTechie, some articles). Renders a page like a real browser | Q7 (free tiers and test plan) |
