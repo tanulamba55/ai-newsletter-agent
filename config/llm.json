@@ -1,0 +1,16 @@
+{
+  "providers": {
+    "gemini": { "type": "openai", "base_url": "https://generativelanguage.googleapis.com/v1beta/openai", "key_env": "GEMINI_API_KEY" },
+    "groq": { "type": "openai", "base_url": "https://api.groq.com/openai/v1", "key_env": "GROQ_API_KEY" },
+    "openrouter": { "type": "openai", "base_url": "https://openrouter.ai/api/v1", "key_env": "OPENROUTER_API_KEY" },
+    "ollama": { "type": "openai", "base_url": "http://localhost:11434/v1", "key_env": null },
+    "claude-cli": { "type": "command", "command": ["claude", "-p"] }
+  },
+  "steps": {
+    "triage": { "provider": "gemini", "model": "gemini-flash-lite-latest" },
+    "review": { "provider": "gemini", "model": "gemini-3.5-flash", "reasoning_effort": "low", "fallbacks": [{ "provider": "gemini", "model": "gemini-flash-lite-latest", "reasoning_effort": "low" }] },
+    "summary": { "provider": "gemini", "model": "gemini-3.5-flash", "reasoning_effort": "low", "fallbacks": [{ "provider": "gemini", "model": "gemini-flash-lite-latest", "reasoning_effort": "low" }] }
+  },
+  "timeout_seconds": 300,
+  "max_rate_limit_waits": 3
+}

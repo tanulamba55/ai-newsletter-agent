@@ -1,0 +1,4 @@
+{
+  "aggregator_hosts": ["msn.com", "news.google.com", "bing.com", "yahoo.com", "flipboard.com", "newsbreak.com", "smartnews.com", "ground.news", "note.com"],
+  "trusted_outlets": ["Reuters", "Bloomberg", "The Verge", "Wired", "Financial Times", "The Wall Street Journal", "The New York Times", "The Information", "TechCrunch", "TechCrunch AI", "TechCrunch Startups", "VentureBeat", "SCMP", "Pandaily", "TechNode", "MarkTechPost", "AI Business", "Crunchbase News", "CNBC", "The Next Web", "Unite.AI"]
+}

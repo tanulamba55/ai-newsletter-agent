@@ -5,5 +5,9 @@
   "slices": 4,
   "snippet_chars": 250,
   "title_duplicate_similarity": 0.8,
-  "cluster_similarity": 0.35
+  "cluster_similarity": 0.35,
+  "shortlist_per_category": 4,
+  "near_miss_min_score": 4,
+  "near_miss_max": 20,
+  "stories_per_category": 3
 }

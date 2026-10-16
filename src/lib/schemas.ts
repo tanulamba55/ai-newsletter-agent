@@ -82,6 +82,10 @@ export const Stage3ConfigSchema = z.object({
   snippet_chars: z.number(), // snippet length shown to triage
   title_duplicate_similarity: z.number(), // titles at least this similar (0-1) are the same story
   cluster_similarity: z.number(), // titles at least this similar are placed next to each other
+  shortlist_per_category: z.number(), // best N kept items per category go to the review agent
+  near_miss_min_score: z.number(), // dropped items at or above this score can enter the near-miss band
+  near_miss_max: z.number(), // most items in the near-miss band
+  stories_per_category: z.number(), // most stories per category in the newsletter
 });
 export type Stage3Config = z.infer<typeof Stage3ConfigSchema>;
 
@@ -101,6 +105,87 @@ export const CandidateSchema = z.object({
   covered_by: z.array(z.object({ outlet: z.string(), url: z.string(), published_at: z.string() })).default([]), // other copies of the same story (other outlets), merged into this item
 });
 export type Candidate = z.infer<typeof CandidateSchema>;
+
+// One triage verdict from an AI agent (data/stage3/triage_<n>.json holds an array of these).
+// Categories are 1-7 and 9 (8 is reserved, see docs/deferred.md).
+export const TriageSchema = z.object({
+  id: z.string(),
+  keep: z.boolean(),
+  category: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5), z.literal(6), z.literal(7), z.literal(9)]),
+  score: z.number().int().min(1).max(10),
+  group: z.string(), // id of the best item of the same story
+  reason: z.string(),
+});
+export type Triage = z.infer<typeof TriageSchema>;
+
+// config/llm.json: which AI backend each Stage 3 step uses. Keys never live here, only the name of the .env variable.
+const LlmModelSchema = z.object({
+  provider: z.string(),
+  model: z.string(),
+  reasoning_effort: z.enum(['none', 'minimal', 'low', 'medium', 'high']).optional(), // optional: how long a "thinking" model may think first
+});
+// A step's main model, plus backups (tried in order) used when the main one stays unavailable after its retries.
+const LlmStepSchema = LlmModelSchema.extend({ fallbacks: z.array(LlmModelSchema).default([]) });
+export const LlmConfigSchema = z.object({
+  providers: z.record(
+    z.string(),
+    z.discriminatedUnion('type', [
+      z.object({ type: z.literal('openai'), base_url: z.string(), key_env: z.string().nullable() }), // any OpenAI-compatible chat endpoint
+      z.object({ type: z.literal('command'), command: z.array(z.string()).min(1) }), // a program that reads the prompt on stdin and prints the answer
+    ]),
+  ),
+  steps: z.object({
+    triage: LlmStepSchema,
+    review: LlmStepSchema,
+    summary: LlmStepSchema,
+  }),
+  timeout_seconds: z.number(),
+  max_rate_limit_waits: z.number(), // how often to wait and retry after an HTTP 429 before giving up
+});
+export type LlmConfig = z.infer<typeof LlmConfigSchema>;
+
+// config/source_rules.json: hosts that are never an original source, and outlets trusted to break news themselves.
+export const SourceRulesSchema = z.object({
+  aggregator_hosts: z.array(z.string()),
+  trusted_outlets: z.array(z.string()),
+});
+export type SourceRules = z.infer<typeof SourceRulesSchema>;
+
+// One summary written by an AI agent (data/stage3/summaries_<n>.json holds an array of these).
+export const SummarySchema = z.object({
+  id: z.string(),
+  skip: z.boolean(),
+  title: z.string(),
+  summary: z.string(),
+  why_it_matters: z.string(),
+  quote: z.string(),
+  source_url: z.string().nullable(), // "self", an address from the page's links, or null
+  note: z.string().default(''),
+});
+export type Summary = z.infer<typeof SummarySchema>;
+
+// One story in data/stories.json (the contract with Stage 4; shape in docs/SPEC.md).
+export const StorySchema = z.object({
+  title: z.string().min(1),
+  category: TriageSchema.shape.category,
+  summary: z.string().min(1),
+  why_it_matters: z.string().min(1),
+  source_url: z.string().url(),
+  other_links: z.array(z.string()).optional(), // coverage by other outlets
+  date: z.string(), // earliest publish date of the story (UTC)
+});
+export type Story = z.infer<typeof StorySchema>;
+
+// One verdict from the review agent (data/stage3/review.json holds an array of these).
+export const ReviewSchema = z.object({
+  id: z.string(),
+  action: z.enum(['keep', 'drop', 'merge']),
+  category: TriageSchema.shape.category,
+  score: z.number().int().min(1).max(10),
+  merge_into: z.string().nullable(),
+  reason: z.string(),
+});
+export type Review = z.infer<typeof ReviewSchema>;
 
 // --- Stage 2 ---
 

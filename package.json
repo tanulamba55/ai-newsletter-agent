@@ -5,12 +5,22 @@
   "scripts": {
     "health": "node tests/health.ts",
     "health:full": "node tests/health.ts --full",
-    "collect": "node src/stage1-collect.ts",
-    "search": "node src/stage2-search.ts",
+    "stage1": "node src/stage1-collect.ts",
+    "stage2": "node src/stage2-search.ts",
+    "stage3": "node src/stage3.ts",
     "stage3:prepare": "node src/stage3-prepare.ts",
+    "stage3:triage": "node src/stage3-triage.ts",
+    "stage3:rank": "node src/stage3-rank.ts",
+    "stage3:review": "node src/stage3-review.ts",
+    "stage3:fetch": "node src/stage3-fetch.ts",
+    "stage3:summarize": "node src/stage3-summarize.ts",
+    "stage3:finish": "node src/stage3-finish.ts",
+    "stage4": "node src/stage4-pdf.ts",
+    "all": "npm run stage1 && npm run stage2 && npm run stage3 && npm run stage4",
     "test": "node --test \"tests/*.test.ts\""
   },
   "dependencies": {
+    "@google/genai": "^2.30.0",
     "rss-parser": "^3.13.0",
     "zod": "^4.6.7"
   }

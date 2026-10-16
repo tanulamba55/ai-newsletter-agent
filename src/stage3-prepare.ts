@@ -44,8 +44,10 @@ if (problems.length) {
 // --- Steps 1 to 2b ---
 const result = prepare(all, cfg, now);
 
-// Remove slice files of an older run so a stale slice is never read by mistake.
-if (existsSync(OUT)) for (const f of readdirSync(OUT)) if (/^candidates(_\d+)?\.json$/.test(f)) unlinkSync(join(OUT, f));
+// A new run starts clean: remove every Stage 3 file of an older run so nothing stale is read by mistake
+// (this includes saved AI answers, so --use-saved only ever reuses answers from the current run).
+const STALE = /^(candidates(_\d+)?|triage_\d+|summaries_\d+|summary_input_\d+|shortlist|review|selected|articles|dropped_triage|dropped_review|ai-log)\.json$/;
+if (existsSync(OUT)) for (const f of readdirSync(OUT)) if (STALE.test(f)) unlinkSync(join(OUT, f));
 writeJsonAtomic(join(OUT, 'candidates.json'), z.array(CandidateSchema).parse(result.candidates));
 result.slices.forEach((slice, i) => writeJsonAtomic(join(OUT, `candidates_${i + 1}.json`), z.array(CandidateSchema).parse(slice)));
 writeJsonAtomic(join(OUT, 'skipped_prepare.json'), z.array(SkippedSchema).parse(result.skipped));
