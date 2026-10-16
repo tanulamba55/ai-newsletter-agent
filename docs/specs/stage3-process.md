@@ -1,6 +1,6 @@
 # Stage 3: Process items into stories
 
-Status: tested (demo scope, 16 Oct 2026). 142 offline tests pass. Real runs: Claude Code agents (15 Oct morning, and a live rehearsal 15 Oct evening, 12 stories) and Gemini through `llm.ts` (15 Oct, 12 stories). You reviewed stories.json, the PDF, the links and the skip log. NOT yet tested: an unattended weekly run, a complete Gemini run on a stronger model (the finished Gemini run used `gemini-flash-lite-latest` for all three steps; the `gemini-3.5-flash` attempt stopped on overload errors), and the new saved-answer, backup-model and skip-busy-model behaviour against the real API (tested offline only)
+Status: tested (demo scope, 16 Oct 2026). 150 offline tests pass; known gaps Q15, Q18, Q19, Q21 accepted by the user on 16 Oct 2026 as non-blocking for the demo (Q14 and Q16 resolved). Real runs: Claude Code agents (15 Oct morning, and a live rehearsal 15 Oct evening, 12 stories) and Gemini through `llm.ts` (15 Oct, 12 stories). You reviewed stories.json, the PDF, the links and the skip log. NOT yet tested: an unattended weekly run, a complete Gemini run on a stronger model (the finished Gemini run used `gemini-flash-lite-latest` for all three steps; the `gemini-3.5-flash` attempt stopped on overload errors), and the new saved-answer, backup-model and skip-busy-model behaviour against the real API (tested offline only)
 Depends on (SPEC.md): Categories + precedence, Selection rules, Importance rubric, Story date, AI engine, Story + Skipped contracts
 Known gaps (open-questions.md): Q14, Q15, Q16, Q18, Q19, Q21
 
@@ -32,13 +32,15 @@ The full design below stays the target. For the demo it is cut down; every cut i
 Turn the raw items (about 400-500 after Stages 1 and 2) into at most 24 clean stories (2-3 per category), each with an original source.
 
 ## Input
-`data/items.json` and `data/items_extra.json` (Stage 2, if present), `data/health_stage1.json` and `data/health_stage2.json`, `data/cache/yc-companies.json` (for the YC tagger).
+`data/items.json` and `data/items_extra.json` (Stage 2, if present), `data/health_stage1.json` and `data/health_stage2.json`, `data/cache/yc-companies.json` (for the YC tagger; deferred, Stage 3 does not read it yet).
 
 ## Output
 `data/stories.json` (Stories) and `data/skipped.json` (Stage 3's own drops merged with `skipped_stage1.json` and `skipped_stage2.json`, for your audit; layout in SPEC.md). Console funnel, for example: `212 items -> 190 in date -> 140 after dedupe -> 58 kept by triage -> 30 shortlisted -> 22 stories`.
 
 ## Steps
 Cheap code first, AI only where judgment is needed.
+
+This table is the full design target. The demo-scope build (Demo scope section above) differs: triage runs in 4 slices of about 120 items (not batches of about 40), there is an extra review pass, summaries run as 4 parts of about 6 stories (not one story at a time), and the YC tagger (2c), number check and token budget are not built.
 
 | # | Step | Done by | What happens |
 |---|---|---|---|
@@ -75,6 +77,11 @@ Fetched pages and AI answers go in `data/cache/`, so reruns cost nothing.
 
 ## Files
 Programs: `src/stage3.ts` (runner) and `src/stage3-<step>.ts` (see the table in Demo scope). Libraries in `src/lib/`: `prepare.ts`, `dedupe.ts`, `triage.ts`, `rank.ts`, `review.ts`, `fetchPage.ts`, `finish.ts`, `llm.ts`, `llmSetup.ts`, `schemas.ts`, `files.ts`, `dates.ts`, `rss.ts`, `urls.ts`. Config: `config/stage3.json`, `config/llm.json`, `config/source_rules.json`. Prompts: `docs/prompts/stage3-triage.md`, `stage3-review.md`, `stage3-summary.md`. Tests: `tests/stage3-*.test.ts`, `tests/llm.test.ts`.
+
+## Settings (config/)
+- `config/stage3.json`: `min_items` and `max_feeds_error` (health guard limits), `item_cap` (most candidates sent on), `slices` (triage slices), `snippet_chars` (snippet length shown to the AI), `title_duplicate_similarity` (titles at least this similar are the same story), `cluster_similarity` (titles this similar sit next to each other), `shortlist_per_category` (top N per category to the review), `near_miss_min_score` and `near_miss_max` (the near-miss band), `stories_per_category` (most stories per category).
+- `config/source_rules.json`: `aggregator_hosts` (never an original source) and `trusted_outlets` (may be a scoop source).
+- `config/llm.json`: `providers` (`base_url`, `key_env` = name of the `.env` variable, or a `command`), `steps` (provider, model, optional `reasoning_effort` and `fallbacks` per step), `timeout_seconds` (wait for one answer) and `max_rate_limit_waits` (waits after an HTTP 429). See SPEC.md AI engine.
 
 ## Decisions made
 - Over-pick 4 per category, trim to 2-3.

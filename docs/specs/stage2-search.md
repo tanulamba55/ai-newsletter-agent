@@ -1,6 +1,6 @@
 # Stage 2: Search lanes to fill gaps
 
-Status: built (15 Oct 2026; 74 automated tests pass, user manual checks done, known gaps Q10, Q11, Q12, Q15, Q20 accepted as non-blocking; not yet run in an end-to-end week)
+Status: built (15 Oct 2026; 74 automated tests pass, user manual checks done, known gaps Q10, Q11, Q12, Q15, Q20 accepted as non-blocking; ran end to end through Stages 3-4 on 15 Oct 2026, on one week of data; a full weekly run on a schedule is not tested)
 Depends on (SPEC.md): Categories + precedence, Item contract, Selection rules
 Known gaps (open-questions.md): Q10, Q11, Q12, Q15, Q20 (plus Q8, Q9 for the shared link decoder)
 Run order: after Stage 1 (build order). Stage 2 does not read Stage 1's output; the YC tagger runs in Stage 3.
@@ -44,6 +44,7 @@ About 25 queries x `max_results` 10 each, about 250 raw items before dedupe (dec
 
 ## Files
 `src/stage2-search.ts`, `src/lib/yc.ts`, `src/lib/search.ts`, `src/lib/resolveUrl.ts`, `config/searches.json`.
+Settings: `config/yc.json` (`recent_batches`: how many recent YC batches count as YC-backed; `ai_tags`: launch tags that mean AI) and `config/aggregators.json` (hosts dropped as reprints).
 
 ## Decisions made
 - 14 Oct 2026 (requirements session): Google News only as backup; prefilter on general-news outlets; aggregator hosts dropped, Bing source name kept; YC launches AI-tagged only with the YC page as url; HN for Launch HN only; 10 results per query and Stage 3 cap about 500; providers-list health file; Meta search kept; query list drafted by Claude and reviewed by the user before build; weekly host is the dev machine for now (Bing re-test on the real host is a Stage 5 gate, Q20).

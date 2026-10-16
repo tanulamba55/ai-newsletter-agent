@@ -1,6 +1,6 @@
 # Stage 1: Collect RSS items
 
-Status: built (14 Oct 2026; 29 automated tests pass, user manual checks passed; not yet run in an end-to-end week)
+Status: built (14 Oct 2026; 29 automated tests pass, user manual checks passed; ran end to end through Stages 2-4 on 15 Oct 2026, on one week of data; a full weekly run on a schedule is not tested)
 Depends on (SPEC.md): Selection rules (7-day window), Item contract
 Known gaps (open-questions.md): Q7, Q8, Q9, Q12 (thin YC sources), Q13, Q15 (decoder gate), Q16, Q17. Q18 and Q19 are Stage 3 gaps
 
@@ -51,6 +51,7 @@ No feed (covered by Stage 2 search): AMD, Databricks, Meta AI blog, Chinese AI l
 
 ## Files
 `src/stage1-collect.ts`, `src/lib/rss.ts`, `src/lib/huggingface.ts`, `src/lib/dates.ts`, `src/lib/resolveUrl.ts`, `src/lib/files.ts`, `src/lib/schemas.ts`.
+Settings: `config/feeds.json` (the feeds) and `config/keywords.json` (`case_sensitive`: words matched exactly, such as "AI"; `case_insensitive`: words matched ignoring case; used by the AI keyword filter).
 
 ## Decisions made
 - Pagination for short feeds; history file only if a feed cannot paginate (Q4).

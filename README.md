@@ -82,7 +82,8 @@ src/      stage1-collect.ts, stage2-search.ts, stage3.ts (runner) and stage3-<st
 data/     generated, git-ignored: items*.json, skipped*.json, health*.json, stories.json, newsletter-<date>.pdf, stage3/ (working files), cache/, health/, demo-2026-10-15/ (saved demo copy)
 tests/    *.test.ts (all offline, no AI), fixtures/ (saved real feeds), health.ts (outside-service check)
 docs/     SPEC.md, open-questions.md, deferred.md, specs/, prompts/ (instructions for the AI steps), sessions/
-scripts/  spikes/ for throwaway experiments (now: firecrawl-spike.ts)
+scripts/  spikes/ for throwaway experiments (now: firecrawl-spike.ts, compare-triage.ts)
+.claude/  skills/docs-sync: the skill that checks docs against code (see CLAUDE.md, Session routine)
 ```
 
 ## Known weak spots
@@ -108,6 +109,7 @@ One-time setup: `npm install`. For the AI steps, put your key in `.env` (for exa
 | `npm run stage3:<step>` | Run one Stage 3 step |
 | `npm test` | all offline tests (no AI, no network) |
 | `npm run health` | quick check of outside services (`health:full` for more) |
+| `npm run docs:check` | do the docs still match the code? Reports only (`src/lib/docsCheck.ts`). Run before every commit that touches `src/`, `config/` or `package.json` |
 
 Stage 3 steps, in order: `prepare`, `triage` (AI), `rank`, `review` (AI), `fetch`, `summarize` (AI), `finish`. Flags for the AI steps: `--use-saved` (use answer files already in `data/stage3/`), `--only <n>` (one slice or part), and for `summarize` also `--inputs-only` (write the input files, no AI call). Which files each step reads and writes: [docs/specs/stage3-process.md](docs/specs/stage3-process.md).
 

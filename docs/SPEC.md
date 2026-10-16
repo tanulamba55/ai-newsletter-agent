@@ -138,6 +138,8 @@ Dropped items with a reason: too_old, duplicate, minor,
 over_category_cap, no_original_source, fetch_failed, quote_not_found,
 not_ai, undated, undecodable_link, over_item_cap, number_not_found,
 aggregator (Stage 2: result hosted on an aggregator such as msn.com).
+Reserved, not emitted yet: `number_not_found` (the number check is deferred; it is not in the code's reason list) and `fetch_failed` (in the list, but a failed page fetch currently falls back to the snippet without a log entry).
+Stage 3 also logs triage and review drops as `not_ai` (score 2 or less) or `minor`, review merges as `duplicate`, and category-cap drops as `over_category_cap`.
 Counted but not logged in Stages 1 and 2: too_old, and exact-URL duplicates.
 File layout: one file per stage. Stage 1 writes `data/skipped_stage1.json`,
 Stage 2 writes `data/skipped_stage2.json`, Stage 3 writes `data/skipped.json`

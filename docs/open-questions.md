@@ -109,6 +109,7 @@ Free workarounds that are fine today but depend on something we do not control. 
 - Update: Stage 2 search now uses Bing first (the real URL is inside its link), so the decoder only matters for Google News links (VentureBeat, Pandaily, SCMP, Google News backup).
 - Fixed: the "Stage 3 follows the redirect" line was wrong (Stage 3 has no decode step; an undecodable link is already dropped in Stage 1 as `undecodable_link`). Removed. Backup is now the Stage 2 outlet lane (Bing `site:`): scmp.com 12 results, venturebeat.com 3, pandaily.com 0 (Oct 2026, one machine).
 - Stage 1 build result (14 Oct 2026): `lib/resolveUrl.ts` built, gate passed. Live run: 0 undecodable. Real articles: VentureBeat 31, SCMP 100, Pandaily 48. The 13 Oct spike's "95 of 95" counted VentureBeat site files (`/_next/static/...js`) as successes; Stage 1 now ignores empty-title entries and rejects site-file URLs. A decoder bug with escaped `=` and `&` was fixed. Spike deleted.
+- Accepted by the user on 16 Oct 2026 as non-blocking for the demo.
 - Spike result (13 Oct 2026, throwaway script, one machine, superseded by the line above): 95 of 95 Google News links decoded to real URLs, 0 failures, 1.5 s between links. Google News gave VentureBeat 100, SCMP 100, Pandaily 48 items; 99% within 7 days (one 2022 item, which the date filter drops). Go/no-go: GO. Catch: it relies on an undocumented Google endpoint that can change, so keep the Bing `site:` backup and the health guard.
 - Status: WATCH
 
@@ -116,8 +117,9 @@ Free workarounds that are fine today but depend on something we do not control. 
 - Gap: Stage 1 shows ERROR rows, but nothing stops Stage 3 from running (and spending money) on a half-empty `items.json`.
 - Proposal: print a loud warning when more than 3 feeds ERROR; optionally stop before Stage 3.
 - Suggested by Claude, user delegated: hard stop before any AI call, with `--force` to override (never in scheduled runs). Warn-only was rejected because nobody reads the console in a weekly run, so thin input would give a confident newsletter missing categories. Stopping costs little since downloads are cached. Conditions in SPEC.md Whole pipeline; the minimum item count is set after the first real run.
-- Update: Stage 1 side done (writes `data/health_stage1.json`). The Stage 3 stop and the Stage 2 health shape are not built yet.
-- Status: DEFAULT APPLIES (change if you disagree)
+- Update: built. Stage 1 and Stage 2 write `data/health_stage1.json` and `health_stage2.json`; `npm run stage3:prepare` stops before anything else if more than `max_feeds_error` feeds are in ERROR, both Bing and Google News failed, or fewer than `min_items` items arrived. `--force` overrides it.
+- Tested: offline for all three conditions (`tests/stage3-prepare.test.ts`). Live on 16 Oct 2026 on real health files: stop on "too few items" and on "too many feeds in ERROR" (exit code 1, no file deleted), and `--force` went on (limits tightened temporarily in `config/stage3.json`, restored). Not tested live: the "both Bing and Google News failed" condition (offline only).
+- Status: RESOLVED (16 Oct 2026)
 
 ## Q17. Keyword prefilter can drop real AI stories [Stage 1]
 - Gap: on Google, Nvidia, Microsoft and Meta feeds, an AI story without a keyword is dropped as `not_ai` and Stage 3 never sees it.
@@ -130,12 +132,16 @@ Free workarounds that are fine today but depend on something we do not control. 
 - Gap: VentureBeat (Google News) and search items have no snippet. Stage 3 triage sees title and snippet only, and the full article is fetched after triage, so a big story with a vague title may be dropped. Official items can fall back to the snippet; media items cannot.
 - Update: Bing results now carry a short description (Stage 2), so only Google News items stay title-only. Stage 3 now falls back to other outlets and snippets when a fetch fails.
 - Open: let some title-only media items reach the article fetch before triage drops them.
+- Seen in Stage 3 (16 Oct 2026): items with empty or thin snippets still reach triage with only a title; the page fetch after triage falls back to other outlets, then the snippet (Magnific One had an empty snippet and was skipped as too thin in two runs). The open point (let title-only media items reach the fetch before triage drops them) is not built.
+- Accepted by the user on 16 Oct 2026 as non-blocking for the demo.
 - Status: OPEN (Stage 3 review)
 
 ## Q19. Stage 1 dedupe is exact URL only [Stage 1, 3]
 - Gap: same story from different outlets is not merged in Stage 1. Stage 3 step 2 (near-identical title) and triage group ids handle it, with no guarantee.
 - Plan: Stage 3 sorts items by title similarity before batching so near-duplicates share a batch (decided). Group ids stay valid only inside a batch. Verify with real same-story groups in Stage 3 testing.
 - Optional safety net (only if testing shows leftover duplicates, e.g. same story with very different headlines in different batches): a final code-only dedupe of the shortlist by `source_url`.
+- Update (16 Oct 2026): built differently. Triage runs in 4 independent slices that cannot see each other, so the same story did appear under different groups (Meta Muse Wonder, Figma, Modal, Alibaba glasses). Now `rank` collapses items of one triage group into one shortlist entry, and the review step merges the rest: it merged 9, 1, 3 and 6 stories in the four runs seen. The `source_url` dedupe was not built. No duplicate stories were found in the final stories of the first two runs (read in full); the later runs' final lists were not checked for this. One week of data.
+- Accepted by the user on 16 Oct 2026 as non-blocking for the demo.
 - Status: WATCH
 
 ## Q20. Search providers are unofficial [Stage 2]
@@ -154,4 +160,5 @@ Free workarounds that are fine today but depend on something we do not control. 
 - Live results (15 Oct 2026, Gemini free tier): triage on `gemini-flash-lite-latest` agreed 87% with the Claude agents on keep/drop and 89% on category (slice 1). A full run on the lite model gave 12 stories (Claude agents: 15). `gemini-flash-latest` and `gemini-3.5-flash` returned HTTP 503 "high demand" repeatedly; `gemini-2.5-flash` is closed to new keys; `gemini-3.5-flash` is slow. Busy-model handling (saved answers, backup list, skip-busy, clean stop) was added after this and is tested offline only (LESSONS.md).
 - Still open: (1) the new busy-model handling has not run against the real API; (2) free-tier limits are unverified and change often, and free prompts may be used by the provider (our input is public news text); (3) the demo data comes from Claude Code agents, not from the model in `config/llm.json`, so say so in the demo; (4) a weaker model writes weaker review choices (kept a non-AI funding story and a low-quality outlet); the quote and source checks catch some errors, not all.
 - Trigger: before the first scheduled weekly run, do one complete run through `llm.ts` on the chosen model and compare its stories with `data/demo-2026-10-15/stories.json`; if quality is clearly worse, pick another provider or a stronger model in `config/llm.json`.
+- Accepted by the user on 16 Oct 2026 as non-blocking for the demo. For a scheduled weekly run it stays a watch item (trigger above).
 - Status: WATCH (built and run live once on Gemini; weekly use not yet tested)
