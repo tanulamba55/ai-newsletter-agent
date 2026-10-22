@@ -94,6 +94,29 @@ scripts/  spikes/ for throwaway experiments (now: firecrawl-spike.ts, compare-tr
 
 Details and fallbacks are in the stage specs and [open-questions.md](docs/open-questions.md).
 
+## Before you start (read this first)
+
+What you need on your machine before running Stages 1 to 4:
+
+| Need | Why | Check |
+|---|---|---|
+| **Node 23.6 or newer** | The code is TypeScript run directly by Node (no build step). Older Node cannot do this | `node --version` |
+| **`npm install`** | Only 3 packages: `rss-parser`, `zod`, `@google/genai` (the last one is not used by the code yet) | run once in the project folder |
+| **Internet access** | Stages 1 and 2 read live feeds and search engines. No key is needed for them | `npm run health` |
+| **`google-chrome` on the PATH** | Stage 4 prints the PDF with headless Chrome. Without it Stage 4 stops with "Chrome (google-chrome) was not found" | `which google-chrome` |
+| **A `.env` file in the project root** (git-ignored, never committed; you must create it) | Holds the AI key for Stage 3. Example line: `GEMINI_API_KEY=your-key`. The variable name must match `key_env` for that provider in `config/llm.json` | `.env` must exist before `npm run stage3` |
+| **An AI route for Stage 3** | Pick ONE: (A) an API key for a provider in `config/llm.json` (Gemini free tier was tested), or (B) Claude Code agents, no key needed (see "Demo mode" below) | |
+
+Good to know before you begin:
+- **`data/` is not in git.** Every generated file (items, stories, PDF, cache, health results) lives only on the machine that made it. A fresh clone starts empty: run Stage 1 first, then 2, 3, 4 in that order. Each stage reads the previous stage's file.
+- **Run `npm run health` first.** It takes about 4 s, checks the outside services (feeds, Google News decoder, search providers) and saves the result in `data/health/`. Stage 3 reads the health files from Stages 1 and 2 and refuses to start if too few items arrived or too many feeds failed (`--force` overrides; never in scheduled runs).
+- **Run Stages 1 and 2 right before Stage 3.** Stage 3 drops anything older than 7 days, so a day-old `items.json` loses a day of news.
+- **Timing:** Stage 1 first run about 10 min (reruns seconds), Stage 2 about 2.5 min, Stage 3 a few minutes, Stage 4 seconds.
+- **Gemini overload is normal.** The free tier often answers HTTP 503 "high demand", mostly on the newest models. Saved answers in `data/cache/ai/` mean a rerun only asks what is missing. Options when it keeps failing: rerun later, add `fallbacks` for the `triage` step in `config/llm.json` (only `review` and `summary` have them now), enable billing on the key, or use the Claude Code agent path. Details: LESSONS.md and "When a model is busy" below.
+- **Stage 3 loses about half of the picked stories** (12 of 23 in every real run) at the original-source rule, so some categories can be empty. This is known and accepted for the demo; see [docs/deferred.md](docs/deferred.md).
+- **Never commit `.env`.** It is in `.gitignore`. `FIRECRAWL_API_KEY` is only used by the spike script `scripts/spikes/firecrawl-spike.ts`, not by Stages 1 to 4.
+- **Working rules for Claude Code** (one stage at a time, docs routine, session notes) are in [CLAUDE.md](CLAUDE.md). Start a session by reading [LESSONS.md](LESSONS.md) and the newest file in [docs/sessions/](docs/sessions/).
+
 ## How to run
 
 One-time setup: `npm install`. For the AI steps, put your key in `.env` (for example `GEMINI_API_KEY=...`) and pick provider and model in `config/llm.json`.
